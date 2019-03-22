@@ -182,4 +182,9 @@
       is_del = #{isDel,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <!--我自己加的方法-->
+  <select id="selectByUserId" resultType="com.ocean.pojo.TUser">
+    select * from yqdb.t_user  a where a.user_id=#{user_id}
+  </select>
+
 </mapper>
