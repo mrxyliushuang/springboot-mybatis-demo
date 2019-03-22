@@ -50,4 +50,6 @@ public interface TUserMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(TUser record);
+
+    TUser selectByUserId(String userId);
 }
