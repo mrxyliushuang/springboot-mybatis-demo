@@ -74,6 +74,18 @@ public class UserRealm extends AuthorizingRealm {
         //给资源进行授权
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
+        TUser dbUser=itUserService.selectByUserId(tUser.getUserId());
+        String type=dbUser.getUserType();
+        Set<String> set = new HashSet<>();
+//        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
+        set.add(type);
+//        //设置该用户拥有的角色
+        info.setRoles(set);
+        return info;
+    }
+}
+
+
 //        String username = (String) SecurityUtils.getSubject().getPrincipal();
 //        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 //        //获得该用户角色
@@ -86,14 +98,4 @@ public class UserRealm extends AuthorizingRealm {
 //        return info;
 //
 //        TUser tUser=itUserService.selectByUserId(userName);
-       // info.addStringPermission(tUser.getUserType());
-        TUser dbUser=itUserService.selectByUserId(tUser.getUserId());
-        String type=dbUser.getUserType();
-        Set<String> set = new HashSet<>();
-//        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
-        set.add(type);
-//        //设置该用户拥有的角色
-        info.setRoles(set);
-        return info;
-    }
-}
+// info.addStringPermission(tUser.getUserType());
