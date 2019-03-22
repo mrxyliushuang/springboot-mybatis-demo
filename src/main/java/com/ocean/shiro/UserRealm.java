@@ -9,6 +9,7 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashSet;
@@ -69,7 +70,7 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("————权限认证————");
         //获取用户名实体（ji电话号码）
-        String userName = (String) SecurityUtils.getSubject().getPrincipal();
+        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
         //给资源进行授权
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 
@@ -84,9 +85,10 @@ public class UserRealm extends AuthorizingRealm {
 //        info.setRoles(set);
 //        return info;
 //
-        TUser tUser=itUserService.selectByUserId(userName);
+//        TUser tUser=itUserService.selectByUserId(userName);
        // info.addStringPermission(tUser.getUserType());
-        String type=tUser.getUserType();
+        TUser dbUser=itUserService.selectByUserId(tUser.getUserId());
+        String type=dbUser.getUserType();
         Set<String> set = new HashSet<>();
 //        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
         set.add(type);
