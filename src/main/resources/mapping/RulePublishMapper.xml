@@ -222,17 +222,7 @@
     select  * from yqdb.rule_publish
   </select>
  <!-- 抢单发布 -->
-  <update id="updatepublish" parameterType="com.ocean.pojo.RulePublish">
-  update rule_publish
-  set rule_title = #{ruleTitle,jdbcType=VARCHAR},
-  rule_type = #{ruleType,jdbcType=VARCHAR},
-  rule_content = #{ruleContent,jdbcType=VARCHAR},
-  rule_datetime_id = #{ruleDatetimeId,jdbcType=VARCHAR},
-  create_time = #{createTime,jdbcType=TIMESTAMP},
-  modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-  is_alive = #{isAlive,jdbcType=TINYINT},
-  is_del = #{isDel,jdbcType=TINYINT},
-  publish_user_id = #{publishUserId,jdbcType=VARCHAR}
-  where rule_publish_id = #{rulePublishId,jdbcType=BIGINT}
-</update>
+  <insert id="insertPublist" parameterType="com.ocean.pojo.RulePublish" keyProperty="rule_publish_id" keyColumn="rulePublishId" useGeneratedKeys="true">
+    insert into yqdb.rule_publish (rule_publish_id,rule_title,rule_type,user_type_id,region_id,role_id,rule_content,rule_datetime_id,create_time,modify_time,is_alive,is_del,publish_user_id) values (#{rulePublishId,jdbcType=BIGINT},#{ruleTitle,jdbcType=VARCHAR},#{ruleType,jdbcType=VARCHAR},#{userTypeId,jdbcType=INTEGER},#{regionId,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR},#{ruleContent,jdbcType=VARCHAR},#{ruleDatetimeId,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{modifyTime,jdbcType=TIMESTAMP},#{isAlive,jdbcType=TINYINT},#{isDel,jdbcType=TINYINT},#{publishUserId,jdbcType=VARCHAR})
+  </insert>
 </mapper>

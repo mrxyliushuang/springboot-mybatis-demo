@@ -148,4 +148,10 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
 
+  <!-- 发布插入信息 -->
+  <insert id="insertPublishDate" parameterType="com.ocean.pojo.RulePublishDatetime" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+
+    insert into yqdb.rule_publish_datetime (id,rule_datetime_id,rule_datetime_start,rule_datetime_end,rule_money,order_num,rule_num) values (#{id,jdbcType=BIGINT},#{ruleDatetimeId,jdbcType=VARCHAR},#{ruleDatetimeStart,jdbcType=TIMESTAMP},#{ruleDatetimeEnd,jdbcType=TIMESTAMP},#{ruleMoney,jdbcType=TINYINT},#{orderNum,jdbcType=TINYINT},#{ruleNum,jdbcType=TINYINT})
+  </insert>
+
 </mapper>
