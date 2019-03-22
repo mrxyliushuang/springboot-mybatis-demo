@@ -3,6 +3,7 @@ package com.ocean.shiro;
 import org.apache.catalina.User;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.apache.shiro.mgt.SecurityManager;
@@ -43,21 +44,20 @@ public class ShiroConfig {
     /**
      * 注入 securityManager
      */
-    @Bean
-    public SecurityManager securityManager() {
+    @Bean(name = "securityManager")
+    public DefaultWebSecurityManager getDefaultWebSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        // 设置realm.
-        securityManager.setRealm(userRealm());
+        //关联Realm
+        securityManager.setRealm(userRealm);
         return securityManager;
     }
-
     /**
      * 自定义身份认证 realm;
      * <p>
      * 必须写这个类，并加上 @Bean 注解，目的是注入 CustomRealm，
      * 否则会影响 CustomRealm类 中其他类的依赖注入
      */
-    @Bean
+    @Bean(name = "userRealm")
     public UserRealm userRealm() {
         return new UserRealm();
     }

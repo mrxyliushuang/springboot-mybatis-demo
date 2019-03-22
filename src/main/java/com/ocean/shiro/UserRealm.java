@@ -46,8 +46,8 @@ public class UserRealm extends AuthorizingRealm {
            if(tUser==null){
                return null;
            }
-
-          return new SimpleAuthenticationInfo(tUser,tUser.getPassWord(),"");
+           String credentials = new String((char[])token.getCredentials());    // 得到认证/凭证（密码）
+           return new SimpleAuthenticationInfo(tUser,String.valueOf(credentials),"");
     }
 
     /**
