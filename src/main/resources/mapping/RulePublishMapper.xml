@@ -184,6 +184,6 @@
   </update>
   <!--我自己加的方法-->
   <select id="findAllRulePubList" resultType="com.ocean.pojo.RulePublish">
-    select * from yqdb.rule_publish
+    select  rule_title,rule_content from yqdb.rule_publish
   </select>
 </mapper>
