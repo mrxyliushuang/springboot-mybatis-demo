@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     @Autowired
     private ResultMap resultMap;
+
+    //注入业务
+    @Autowired
     private ITUserService itUserService;
 //    private UserMapper userMapper;
 
