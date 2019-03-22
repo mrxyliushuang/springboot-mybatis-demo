@@ -4,8 +4,9 @@ import com.ocean.dao.TUserMapper;
 import com.ocean.pojo.TUser;
 import com.ocean.service.ITUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service(value = "tUserService")
 public class TUserServiceImpl  implements ITUserService {
 
     @Autowired
