@@ -42,7 +42,7 @@ public class LoginController {
      * @param username 用户名
      * @param password 密码
      */
-    @RequestMapping(value = "/login", produces = {"application/html;charset=UTF-8"},method = RequestMethod.POST)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public ResultMap login(String username, String password) {
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();

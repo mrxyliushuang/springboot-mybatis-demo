@@ -53,8 +53,5 @@ public interface RulePublishMapper {
      */
     int updateByPrimaryKey(RulePublish record);
 
-    List  findAllRulePubList();
-
-
-
+    List findAllRulePubList();
 }

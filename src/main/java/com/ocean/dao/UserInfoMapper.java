@@ -53,5 +53,7 @@ public interface UserInfoMapper {
      */
     int updateByPrimaryKey(UserInfo record);
 
+
     List findAllUser();
+
 }
