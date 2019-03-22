@@ -1,0 +1,16 @@
+server:
+  port: 18080
+
+spring:
+    datasource:
+        name: test
+        url: jdbc:mysql://134.176.110.182:8907/yqdb
+        username: yqq
+        password: DX@yqq0318
+        driver-class-name: com.mysql.jdbc.Driver
+mybatis:
+  mapper-locations: classpath:mapping/*Mapper.xml
+  type-aliases-package: com.ocean.pojo
+  configuration:
+    map-underscore-to-camel-case: true
+
