@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/user")
-public class UserController{
+public class IUserController {
     @Autowired
     private final ResultMap resultMap;
 
-    public UserController(ResultMap resultMap) {
+    public IUserController(ResultMap resultMap) {
         this.resultMap = resultMap;
     }
 
