@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class LoginController {
     @Autowired
     private ResultMap resultMap;
-
-    //注入业务
     @Autowired
     private ITUserService itUserService;
 //    private UserMapper userMapper;
@@ -45,7 +43,7 @@ public class LoginController {
      * @param username 用户名
      * @param password 密码
      */
-    @RequestMapping(value = "/login",method = RequestMethod.GET)
+    @RequestMapping(value = "/login",method = RequestMethod.POST)
     public ResultMap login(String username, String password) {
         // 从SecurityUtils里边创建一个 subject
         Subject subject = SecurityUtils.getSubject();
