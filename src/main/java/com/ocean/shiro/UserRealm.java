@@ -33,7 +33,7 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
 
         System.out.println("————身份认证方法————");
-        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+//        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         // 从数据库获取对应用户名密码的用户
 //        String password = itUserService.getPassWord(token.getUsername());
 //        if (null == password) {
@@ -42,12 +42,21 @@ public class UserRealm extends AuthorizingRealm {
 //            throw new AccountException("密码不正确");
 //        }
 //        return new SimpleAuthenticationInfo(token.getPrincipal(), password, getName());
-           TUser tUser=itUserService.selectByUserId(token.getUsername());//将ID即电话号码作为username查询
-           if(tUser==null){
-               return null;
-           }
-           String credentials = new String((char[])token.getCredentials());    // 得到认证/凭证（密码）
-           return new SimpleAuthenticationInfo(tUser,String.valueOf(credentials),"");
+//           TUser tUser=itUserService.selectByUserId(token.getUsername());//将ID即电话号码作为username查询
+//           if(tUser==null){
+//               return null;
+//           }
+//           String credentials = new String((char[])token.getCredentials());    // 得到认证/凭证（密码）
+//           return new SimpleAuthenticationInfo(tUser,String.valueOf(credentials),"");
+        UsernamePasswordToken token = (UsernamePasswordToken)authenticationToken;
+        TUser tUser = itUserService.selectByUserId(token.getUsername());
+        if(tUser==null){
+            //用户名不存在
+            return null;
+        }
+
+        //2.判断密码
+        return new SimpleAuthenticationInfo(tUser,tUser.getPassWord(),"");
     }
 
     /**
