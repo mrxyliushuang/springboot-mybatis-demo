@@ -322,4 +322,5 @@ public class RulePublish {
     public void setPublishUserId(String publishUserId) {
         this.publishUserId = publishUserId == null ? null : publishUserId.trim();
     }
+
 }

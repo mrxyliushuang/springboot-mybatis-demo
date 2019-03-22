@@ -186,4 +186,18 @@
   <select id="findAllRulePubList" resultType="com.ocean.pojo.RulePublish">
     select  rule_title,rule_content from yqdb.rule_publish
   </select>
+ <!-- 抢单发布 -->
+  <update id="updatepublish" parameterType="com.ocean.pojo.RulePublish">
+  update rule_publish
+  set rule_title = #{ruleTitle,jdbcType=VARCHAR},
+  rule_type = #{ruleType,jdbcType=VARCHAR},
+  rule_content = #{ruleContent,jdbcType=VARCHAR},
+  rule_datetime_id = #{ruleDatetimeId,jdbcType=VARCHAR},
+  create_time = #{createTime,jdbcType=TIMESTAMP},
+  modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+  is_alive = #{isAlive,jdbcType=TINYINT},
+  is_del = #{isDel,jdbcType=TINYINT},
+  publish_user_id = #{publishUserId,jdbcType=VARCHAR}
+  where rule_publish_id = #{rulePublishId,jdbcType=BIGINT}
+</update>
 </mapper>
