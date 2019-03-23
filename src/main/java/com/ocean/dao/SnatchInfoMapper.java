@@ -1,5 +1,6 @@
 package com.ocean.dao;
 
+import com.ocean.pojo.RulePublish;
 import com.ocean.pojo.SnatchInfo;
 
 public interface SnatchInfoMapper {
@@ -50,4 +51,7 @@ public interface SnatchInfoMapper {
      * @mbggenerated
      */
     int updateByPrimaryKey(SnatchInfo record);
+
+    /*插入抢单信息*/
+    int insertSnatInfo(long snatchMobileNumber);
 }

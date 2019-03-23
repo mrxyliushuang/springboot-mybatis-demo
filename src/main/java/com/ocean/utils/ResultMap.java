@@ -27,6 +27,19 @@ public class ResultMap extends HashMap<String, Object> {
         return this;
     }
 
+    //发布插入返回数据成功
+    public ResultMap publishSuccess(){
+        this.put("result","publishSucess");
+        return this;
+    }
+
+    //发布插入返回数据成功
+    public ResultMap publishFail(){
+        this.put("result","publishFail");
+        return this;
+    }
+
+
     public ResultMap message(Object message) {
         this.put("message", message);
         return this;
