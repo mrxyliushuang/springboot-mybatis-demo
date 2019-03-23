@@ -27,7 +27,7 @@ public class RulePubListServiceImpl implements IRulePublishListService {
     * */
     @Override
     @Transactional
-    public int insertPublist(RulePublish rulePublish) {
+    public boolean insertPublist(RulePublish rulePublish) {
             rulePublishDao.insertPublist(rulePublish);
             RulePublishDatetime rulePublishDatetime = new RulePublishDatetime();
             rulePublishDatetime.setRuleDatetimeId(rulePublish.getRuleDatetimeId());
@@ -36,7 +36,7 @@ public class RulePubListServiceImpl implements IRulePublishListService {
             rulePublishDatetime.setRuleMoney(rulePublish.getRuleMoney());
             rulePublishDatetime.setOrderNum(rulePublish.getOrderNum());
             rulePublishDatetime.setRuleNum(rulePublish.getRuleNum());
-            int i = rulePublishDatetimeMapper.insertPublishDate(rulePublishDatetime);
+            boolean i = rulePublishDatetimeMapper.insertPublishDate(rulePublishDatetime);
 
             return i;
 

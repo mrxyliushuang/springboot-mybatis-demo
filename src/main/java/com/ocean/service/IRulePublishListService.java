@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IRulePublishListService {
     List findAllRulePubList();
-    public int insertPublist(RulePublish rulePublish);
+    public boolean insertPublist(RulePublish rulePublish);
 }

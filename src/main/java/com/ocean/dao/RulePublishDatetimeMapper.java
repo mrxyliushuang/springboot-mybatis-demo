@@ -23,6 +23,6 @@ public interface RulePublishDatetimeMapper {
 
     int updateByPrimaryKey(RulePublishDatetime record);
     /*插入发布信息*/
-    int insertPublishDate(RulePublishDatetime rulePublishDatetime);
+    public boolean insertPublishDate(RulePublishDatetime rulePublishDatetime);
 
 }

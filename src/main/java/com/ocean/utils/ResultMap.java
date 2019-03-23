@@ -1,4 +1,4 @@
-package com.ocean.model;
+package com.ocean.utils;
 
 import org.springframework.stereotype.Component;
 
