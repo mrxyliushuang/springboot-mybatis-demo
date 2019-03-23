@@ -1,5 +1,6 @@
 package com.ocean.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -9,8 +10,10 @@ public class RulePublishDatetime {
     private Long id;
     private String ruleDatetimeId;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ruleDatetimeStart;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date ruleDatetimeEnd;
     private Byte ruleMoney;
     private Byte orderNum;
@@ -152,5 +155,18 @@ public class RulePublishDatetime {
      */
     public void setRuleNum(Byte ruleNum) {
         this.ruleNum = ruleNum;
+    }
+
+    @Override
+    public String toString() {
+        return "RulePublishDatetime{" +
+                "id=" + id +
+                ", ruleDatetimeId='" + ruleDatetimeId + '\'' +
+                ", ruleDatetimeStart=" + ruleDatetimeStart +
+                ", ruleDatetimeEnd=" + ruleDatetimeEnd +
+                ", ruleMoney=" + ruleMoney +
+                ", orderNum=" + orderNum +
+                ", ruleNum=" + ruleNum +
+                '}';
     }
 }

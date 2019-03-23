@@ -7,7 +7,6 @@ import java.util.HashMap;
  *
  */
 
-  // 封装返回值类型的数据
 public class Json extends HashMap<String, Object> {
 
     /////////////////////// 默认的键 ///////////////////////

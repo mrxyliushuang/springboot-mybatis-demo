@@ -54,7 +54,7 @@ public interface RulePublishMapper {
      */
     int updateByPrimaryKey(RulePublish record);
      /*插入发布信息*/
-    int insertPublist(RulePublish rulePublish);
+    public boolean insertPublist(RulePublish rulePublish);
     List findAllRulePubList();
 
 }
