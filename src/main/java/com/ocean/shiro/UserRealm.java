@@ -83,12 +83,12 @@ public class UserRealm extends AuthorizingRealm {
 }
 
 //
-//    TUser tUser=itUserService.selectByUserId(userName);
-//    // info.addStringPermission(tUser.getUserType());
-//    String type=tUser.getUserType();
-//    Set<String> set = new HashSet<>();
-////        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
-//        set.add(type);
-////        //设置该用户拥有的角色
-//                info.setRoles(set);
-//                return info;
+////    TUser tUser=itUserService.selectByUserId(userName);
+////    // info.addStringPermission(tUser.getUserType());
+////    String type=tUser.getUserType();
+////    Set<String> set = new HashSet<>();
+//////        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
+////        set.add(type);
+//////        //设置该用户拥有的角色
+////                info.setRoles(set);
+////                return info;

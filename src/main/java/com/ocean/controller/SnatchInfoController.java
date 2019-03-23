@@ -21,11 +21,11 @@ public class SnatchInfoController {
     @Autowired
     private ResultMap resultMap;
 
-
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    Date snatchDatetime=new Date();
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    Date auditDatetime=new Date();
+//
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    Date snatchDatetime=new Date();
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    Date auditDatetime=new Date();
 
     //    @RequestMapping(value = {"/insert"},produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
 //    @ResponseBody
@@ -65,9 +65,9 @@ public class SnatchInfoController {
 
         int  snatchMoney=50;
 
-        snatchInfo.setSnatchDatetime(snatchDatetime);
+        snatchInfo.setSnatchDatetime(new Date());
         snatchInfo.setIsAudit((byte)isAudit);
-        snatchInfo.setAuditDatetime(auditDatetime);
+        snatchInfo.setAuditDatetime(new Date());
         snatchInfo.setSnatchMoney((byte)snatchMoney);
 //
 //        //查询条件类
