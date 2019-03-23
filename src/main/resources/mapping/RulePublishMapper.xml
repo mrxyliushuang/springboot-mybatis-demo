@@ -204,7 +204,7 @@
     -->
     update rule_publish
     set rule_title = #{ruleTitle,jdbcType=VARCHAR},
-      rule_type = #{ruleType,jdbcType=VARCHAR},
+      rule_type = #{ß,jdbcType=VARCHAR},
       user_type_id = #{userTypeId,jdbcType=INTEGER},
       region_id = #{regionId,jdbcType=VARCHAR},
       role_id = #{roleId,jdbcType=VARCHAR},

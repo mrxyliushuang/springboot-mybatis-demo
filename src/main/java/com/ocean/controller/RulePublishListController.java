@@ -48,19 +48,22 @@ public class RulePublishListController {
 
     @RequestMapping(value = "/insertPublist", method = RequestMethod.POST, headers = "Accept=application/json")
     @ResponseBody
+    @ResponseStatus
     public ResponseEntity<ResultMap> insertPublist(RulePublish rulePublish) {
 
         try {
             rulePublishListService.insertPublist(rulePublish);
            // return ResponseEntity.status(HttpStatus.CREATED).build();
-
                 //返回数据就为http响应体内容
-                return ResponseEntity.ok(resultMap.insertSuccess().message("insertSuccess"));
-
-
+                ResponseEntity.status(HttpStatus.CREATED).build();
+                return ResponseEntity.ok(resultMap.publishSuccess().message("publishSuccess"));
         } catch (Exception e) {
             e.printStackTrace();
+         //  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//            return ResponseEntity.badRequest(resultMap.publishFail().message("publishFail"))
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.ok(resultMap.publishFail().message("publishFail"));
         }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
     }
 }
