@@ -41,6 +41,7 @@
     delete from snatch_info
     where snatch_info_id = #{snatchInfoId,jdbcType=BIGINT}
   </delete>
+  <!--抢单插入数据-->
   <insert id="insert" parameterType="com.ocean.pojo.SnatchInfo">
     <!--
       WARNING - @mbggenerated
@@ -51,7 +52,7 @@
       is_audit, audit_datetime, snatch_money
       )
     values (#{snatchInfoId,jdbcType=BIGINT}, #{snatchMobileNumber,jdbcType=VARCHAR}, 
-      #{snatchUserId,jdbcType=VARCHAR}, #{rulePublishId,jdbcType=VARCHAR}, #{snatchDatetime,jdbcType=TIMESTAMP}, 
+      #{snatchUserId,jdbcType=VARCHAR}, #{rulePublishId,jdbcType=VARCHAR}, #{snatchDatetime,jdbcType=TIMESTAMP},
       #{isAudit,jdbcType=TINYINT}, #{auditDatetime,jdbcType=TIMESTAMP}, #{snatchMoney,jdbcType=TINYINT}
       )
   </insert>
@@ -160,4 +161,5 @@
       snatch_money = #{snatchMoney,jdbcType=TINYINT}
     where snatch_info_id = #{snatchInfoId,jdbcType=BIGINT}
   </update>
+
 </mapper>

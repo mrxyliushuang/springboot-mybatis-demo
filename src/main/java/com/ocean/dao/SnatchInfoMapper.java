@@ -53,5 +53,5 @@ public interface SnatchInfoMapper {
     int updateByPrimaryKey(SnatchInfo record);
 
     /*插入抢单信息*/
-    int insertSnatInfo(long snatchMobileNumber);
+    void  insertSnatInfo(SnatchInfo snatchIndo);
 }
