@@ -27,6 +27,13 @@ public class ResultMap extends HashMap<String, Object> {
         return this;
     }
 
+    //发布插入返回数据
+    public ResultMap insertSuccess(){
+        this.put("result","insertSucess");
+        return this;
+    }
+
+
     public ResultMap message(Object message) {
         this.put("message", message);
         return this;
