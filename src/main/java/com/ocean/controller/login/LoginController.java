@@ -1,6 +1,6 @@
 package com.ocean.controller.login;
 
-import com.ocean.model.ResultMap;
+import com.ocean.utils.ResultMap;
 import com.ocean.pojo.TUser;
 import com.ocean.service.ITUserService;
 import org.apache.shiro.SecurityUtils;

@@ -17,9 +17,9 @@ public class InsertSnatInfoServiceImpl implements IInsertSnatInfoService {
 
     //插入抢单数据
     @Override
-    public void  insertSnatInfo(SnatchInfo snatchInfo) {
+    public boolean  insertSnatInfo(SnatchInfo snatchInfo) {
 
-        snatchInfoMapper.insertSnatInfo(snatchInfo);
+       return  snatchInfoMapper.insertSnatInfo(snatchInfo);
     }
 
 }

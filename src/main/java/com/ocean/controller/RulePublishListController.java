@@ -1,6 +1,6 @@
 package com.ocean.controller;
 
-import com.ocean.model.ResultMap;
+import com.ocean.utils.ResultMap;
 import com.ocean.pojo.RulePublish;
 import com.ocean.service.IRulePublishListService;
 import com.ocean.service.impl.RulePubListServiceImpl;

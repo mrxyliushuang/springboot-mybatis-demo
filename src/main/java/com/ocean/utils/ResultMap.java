@@ -1,4 +1,4 @@
-package com.ocean.model;
+package com.ocean.utils;
 
 import org.springframework.stereotype.Component;
 
@@ -18,27 +18,38 @@ public class ResultMap extends HashMap<String, Object> {
     }
 
     public ResultMap success() {
-        this.put("result", "success");
+        this.put("result", "loginSuccess");
         return this;
     }
 
     public ResultMap fail() {
-        this.put("result", "fail");
+        this.put("result", "loginFail");
         return this;
     }
 
     //发布插入返回数据成功
     public ResultMap publishSuccess(){
-        this.put("result","publishSucess");
+        this.put("result","publishSuccess");
         return this;
     }
 
-    //发布插入返回数据成功
+    //发布插入返回数据失败
     public ResultMap publishFail(){
         this.put("result","publishFail");
         return this;
     }
 
+    //抢单插入返回数据成功
+    public ResultMap snatchSuccess(){
+        this.put("result","snatchSuccess");
+        return this;
+    }
+
+    //抢单插入返回数据失败
+    public ResultMap snatchFail(){
+        this.put("result","snatchFail");
+        return this;
+    }
 
     public ResultMap message(Object message) {
         this.put("message", message);
