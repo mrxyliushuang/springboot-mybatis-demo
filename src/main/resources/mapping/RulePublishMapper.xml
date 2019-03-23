@@ -221,4 +221,8 @@
   <select id="findAllRulePubList" resultType="com.ocean.pojo.RulePublish">
     select  * from yqdb.rule_publish
   </select>
+ <!-- 抢单发布 -->
+  <insert id="insertPublist" parameterType="com.ocean.pojo.RulePublish" keyProperty="rule_publish_id" keyColumn="rulePublishId" useGeneratedKeys="true">
+    insert into yqdb.rule_publish (rule_publish_id,rule_title,rule_type,user_type_id,region_id,role_id,rule_content,rule_datetime_id,create_time,modify_time,is_alive,is_del,publish_user_id) values (#{rulePublishId,jdbcType=BIGINT},#{ruleTitle,jdbcType=VARCHAR},#{ruleType,jdbcType=VARCHAR},#{userTypeId,jdbcType=INTEGER},#{regionId,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR},#{ruleContent,jdbcType=VARCHAR},#{ruleDatetimeId,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{modifyTime,jdbcType=TIMESTAMP},#{isAlive,jdbcType=TINYINT},#{isDel,jdbcType=TINYINT},#{publishUserId,jdbcType=VARCHAR})
+  </insert>
 </mapper>
