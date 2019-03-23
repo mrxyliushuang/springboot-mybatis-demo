@@ -5,6 +5,7 @@ import com.ocean.utils.ResultMap;
 import com.ocean.pojo.SnatchInfo;
 import com.ocean.service.IInsertSnatInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +22,10 @@ public class SnatchInfoController {
     private ResultMap resultMap;
 
 
-    @Autowired
-    private SnatchInfo snatchInfo;
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date snatchDatetime=new Date();
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    Date auditDatetime=new Date();
 
     //    @RequestMapping(value = {"/insert"},produces = {"application/json;charset=UTF-8"},method = RequestMethod.GET)
 //    @ResponseBody
@@ -44,25 +47,24 @@ public class SnatchInfoController {
 //
 //    }
 
-   @RequestMapping(value = {"/insert"},produces = {"application/json;charset=UTF-8"},method = RequestMethod.POST)
+   @RequestMapping(value = {"/insert"},method = RequestMethod.POST)
    @ResponseBody
-    public Json insertSnatch(HttpServletRequest req, HttpServletResponse resp) {
+    public Json insertSnatch(@RequestBody SnatchInfo snatchInfo) {
         String oper = "insert Snatch Info";
        // log.info("{}, body: {}", oper, req);
         //获取传入的参数
-        String snatchMobileNumber=req.getParameter("snatchMobileNumber");
-        String snatchUserId=req.getParameter("snatchMobileNumber");
-        String rulePublishId=req.getParameter("snatchMobileNumber");
+//        String snatchMobileNumber=req.getParameter("snatchMobileNumber");
+//        String snatchUserId=req.getParameter("snatchMobileNumber");
+//        String rulePublishId=req.getParameter("snatchMobileNumber");
 
+        String snatchMobileNumber=snatchInfo.getSnatchMobileNumber();
+        String snatchUserId=snatchInfo.getSnatchUserId();
+        String rulePublishId= snatchInfo.getRulePublishId();
 
-        Date snatchDatetime=new Date();
         int  isAudit=1;
-        Date auditDatetime=new Date();
+
         int  snatchMoney=50;
 
-        snatchInfo.setSnatchMobileNumber(snatchMobileNumber);
-        snatchInfo.setSnatchUserId(snatchUserId);
-        snatchInfo.setRulePublishId(rulePublishId);
         snatchInfo.setSnatchDatetime(snatchDatetime);
         snatchInfo.setIsAudit((byte)isAudit);
         snatchInfo.setAuditDatetime(auditDatetime);
