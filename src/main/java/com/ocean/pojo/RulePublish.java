@@ -5,7 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-public class RulePublish extends RulePublishDatetime{
+public class RulePublish {
     private Long rulePublishId;
     private String ruleTitle;
     private String ruleType;
@@ -24,6 +24,15 @@ public class RulePublish extends RulePublishDatetime{
     private Byte isDel;
 
     private String publishUserId;
+    private RulePublishDatetime rulePublishDatetime;
+
+    public RulePublishDatetime getRulePublishDatetime() {
+        return rulePublishDatetime;
+    }
+
+    public void setRulePublishDatetime(RulePublishDatetime rulePublishDatetime) {
+        this.rulePublishDatetime = rulePublishDatetime;
+    }
 
     public Long getRulePublishId() {
         return rulePublishId;
