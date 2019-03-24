@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -76,8 +78,8 @@ public class RulePublishListController {
         if (rulePublish.getPublishUserId()==null){
             rulePublish.setPublishUserId(publishUserId);
         }
-        if (rulePublish.getOrderNum()==null){
-            rulePublish.setOrderNum(orderNum);
+        if (rulePublish.getRulePublishDatetime().getOrderNum()==null){
+            rulePublish.getRulePublishDatetime().setOrderNum(orderNum);
         }
         if (rulePublish.getCreateTime()==null){
             rulePublish.setCreateTime(new Date());
@@ -91,10 +93,10 @@ public class RulePublishListController {
         return Json.result(oper, success);
     }
 
-    @RequestMapping(value = "/queryPublish", method = RequestMethod.POST)
-    public Json queryPublish(@RequestBody RulePublish rulePublish) {
+    @RequestMapping(value = "/queryPublish", method = RequestMethod.GET)
+    public Json queryList(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("--------------------");
-        System.out.println(rulePublish.toString());
+        RulePublish rulePublish = new RulePublish();
         List query = rulePublishListService.queryPublishList(rulePublish);
         String oper = "query ospStaff";
         return Json.succ(oper, query);

@@ -23,22 +23,22 @@ public class RulePubListServiceImpl implements IRulePublishListService {
         return rulePublishDao.findAllRulePubList();
     }
     /*
-    * 插入发布信息
-    * */
+     * 插入发布信息
+     * */
     @Override
     @Transactional
     public boolean insertPublist(RulePublish rulePublish) {
-            rulePublishDao.insertPublist(rulePublish);
-            RulePublishDatetime rulePublishDatetime = new RulePublishDatetime();
-            rulePublishDatetime.setRuleDatetimeId(rulePublish.getRuleDatetimeId());
-            rulePublishDatetime.setRuleDatetimeStart(rulePublish.getRuleDatetimeStart());
-            rulePublishDatetime.setRuleDatetimeEnd(rulePublish.getRuleDatetimeEnd());
-            rulePublishDatetime.setRuleMoney(rulePublish.getRuleMoney());
-            rulePublishDatetime.setOrderNum(rulePublish.getOrderNum());
-            rulePublishDatetime.setRuleNum(rulePublish.getRuleNum());
-            boolean i = rulePublishDatetimeMapper.insertPublishDate(rulePublishDatetime);
+        rulePublishDao.insertPublist(rulePublish);
+        RulePublishDatetime rulePublishDatetime = new RulePublishDatetime();
+        rulePublishDatetime.setRuleDatetimeId(rulePublish.getRuleDatetimeId());
+        rulePublishDatetime.setRuleDatetimeStart(rulePublish.getRulePublishDatetime().getRuleDatetimeStart());
+        rulePublishDatetime.setRuleDatetimeEnd(rulePublish.getRulePublishDatetime().getRuleDatetimeEnd());
+        rulePublishDatetime.setRuleMoney(rulePublish.getRulePublishDatetime().getRuleMoney());
+        rulePublishDatetime.setOrderNum(rulePublish.getRulePublishDatetime().getOrderNum());
+        rulePublishDatetime.setRuleNum(rulePublish.getRulePublishDatetime().getRuleNum());
+        boolean insertPublishDate = rulePublishDatetimeMapper.insertPublishDate(rulePublishDatetime);
 
-            return i;
+        return insertPublishDate;
 
     }
 
