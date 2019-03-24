@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class UserRealm extends AuthorizingRealm {
     private ITUserService itUserService;
-  //注入业务
+    //注入业务
     @Autowired
     private void setItUserService(ITUserService itUserService){
         this.itUserService=itUserService;
@@ -42,12 +42,12 @@ public class UserRealm extends AuthorizingRealm {
 //            throw new AccountException("密码不正确");
 //        }
 //        return new SimpleAuthenticationInfo(token.getPrincipal(), password, getName());
-           TUser tUser=itUserService.selectByUserId(token.getUsername());//将ID即电话号码作为username查询
-           if(tUser==null){
-               return null;
-           }
+        TUser tUser=itUserService.selectByUserId(token.getUsername());//将ID即电话号码作为username查询
+        if(tUser==null){
+            return null;
+        }
 
-          return new SimpleAuthenticationInfo(tUser,tUser.getPassWord(),"");
+        return new SimpleAuthenticationInfo(tUser,tUser.getPassWord(),"");
     }
 
     /**
@@ -58,31 +58,37 @@ public class UserRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("————权限认证————");
-        //获取用户名实体（ji电话号码）
-        String userName = (String) SecurityUtils.getSubject().getPrincipal();
-        //给资源进行授权
-        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-
-//        String username = (String) SecurityUtils.getSubject().getPrincipal();
+//        System.out.println("————权限认证————");
+//        //获取用户名实体（ji电话号码）
+//        String userName = (String) SecurityUtils.getSubject().getPrincipal();
+//        //给资源进行授权
 //        SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-//        //获得该用户角色
-//        String role = userMapper.getRole(username);
-//        Set<String> set = new HashSet<>();
-//        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
-//        set.add(role);
-//        //设置该用户拥有的角色
-//        info.setRoles(set);
-//        return info;
-//
-        TUser tUser=itUserService.selectByUserId(userName);
-       // info.addStringPermission(tUser.getUserType());
-        String type=tUser.getUserType();
-        Set<String> set = new HashSet<>();
-//        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
+
+        System.out.println("————权限认证————");
+//获取用户名实体（ji电话号码）
+        TUser tUser=(TUser)SecurityUtils.getSubject().getPrincipal();
+//给资源进行授权
+        SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
+
+        TUser dbUser=itUserService.selectByUserId(tUser.getUserId());
+        String type=dbUser.getUserType();
+        Set<String>set=new HashSet<>();
+////需要将role封装到Set作为info.setRoles()的参数
         set.add(type);
-//        //设置该用户拥有的角色
+////设置该用户拥有的角色
         info.setRoles(set);
         return info;
+
     }
 }
+
+//
+////    TUser tUser=itUserService.selectByUserId(userName);
+////    // info.addStringPermission(tUser.getUserType());
+////    String type=tUser.getUserType();
+////    Set<String> set = new HashSet<>();
+//////        //需要将 role 封装到 Set 作为 info.setRoles() 的参数
+////        set.add(type);
+//////        //设置该用户拥有的角色
+////                info.setRoles(set);
+////                return info;

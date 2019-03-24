@@ -13,4 +13,3 @@ mybatis:
   type-aliases-package: com.ocean.pojo
   configuration:
     map-underscore-to-camel-case: true
-

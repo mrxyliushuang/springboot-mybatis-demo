@@ -1,5 +1,8 @@
 package com.ocean.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class SnatchInfo {
@@ -41,6 +44,8 @@ public class SnatchInfo {
      *
      * @mbggenerated
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date snatchDatetime;
 
     /**
@@ -57,6 +62,8 @@ public class SnatchInfo {
      *
      * @mbggenerated
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date auditDatetime;
 
     /**
