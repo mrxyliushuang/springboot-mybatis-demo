@@ -221,6 +221,27 @@
   <select id="findAllRulePubList" resultType="com.ocean.pojo.RulePublish">
     select  * from yqdb.rule_publish
   </select>
+
+  <!-- 发布详情 -->
+  <resultMap type="com.ocean.pojo.RulePublish" id="queryRulePublish" extends="BaseResultMap">
+    <collection property="studentList" javaType="ArrayList" ofType="com.ocean.pojo.RulePublishDatetime">
+      <id column="id" property="id" />
+      <result column="rule_datetime_id" property="ruleDatetimeId" />
+      <result column="rule_datetime_start" property="ruleDatetimeStart" />
+      <result column="rule_datetime_end" property="ruleDatetimeEnd" />
+      <result column="rule_money" property="ruleMoney" />
+      <result column="order_num" property="orderNum" />
+      <result column="rule_num" property="ruleNum" />
+    </collection>
+  </resultMap>
+
+  <select id="queryPublishList" resultMap="queryRulePublish">
+    SELECT <include refid="Base_Column_List"/>
+    s.id, s.rule_datetime_id, s.rule_datetime_start, s.rule_datetime_end, s.rule_money, s.order_num,
+    s.rule_num
+    FROM yqdb.rule_publish c LEFT JOIN yqdb.rule_publish_datetime s
+    ON c.rule_datetime_id=s.rule_datetime_id;
+  </select>
  <!-- 抢单发布 -->
   <insert id="insertPublist" parameterType="com.ocean.pojo.RulePublish" keyProperty="rule_publish_id" keyColumn="rulePublishId" useGeneratedKeys="true">
     insert into yqdb.rule_publish (rule_publish_id,rule_title,rule_type,user_type_id,region_id,role_id,rule_content,rule_datetime_id,create_time,modify_time,is_alive,is_del,publish_user_id) values (#{rulePublishId,jdbcType=BIGINT},#{ruleTitle,jdbcType=VARCHAR},#{ruleType,jdbcType=VARCHAR},#{userTypeId,jdbcType=INTEGER},#{regionId,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR},#{ruleContent,jdbcType=VARCHAR},#{ruleDatetimeId,jdbcType=VARCHAR},#{createTime,jdbcType=TIMESTAMP},#{modifyTime,jdbcType=TIMESTAMP},#{isAlive,jdbcType=TINYINT},#{isDel,jdbcType=TINYINT},#{publishUserId,jdbcType=VARCHAR})

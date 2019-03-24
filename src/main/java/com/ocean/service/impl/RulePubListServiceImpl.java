@@ -41,5 +41,10 @@ public class RulePubListServiceImpl implements IRulePublishListService {
             return i;
 
     }
+
+    @Override
+    public List queryPublishList(RulePublish rulePublish) {
+        return rulePublishDao.queryPublishList(rulePublish);
+    }
 }
 

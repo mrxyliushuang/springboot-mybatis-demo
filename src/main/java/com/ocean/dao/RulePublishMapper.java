@@ -56,5 +56,6 @@ public interface RulePublishMapper {
      /*插入发布信息*/
     public boolean insertPublist(RulePublish rulePublish);
     List findAllRulePubList();
+    public List queryPublishList(RulePublish rulePublish);
 
 }

@@ -24,13 +24,11 @@ public class RulePublishListController {
 
     @Autowired
     private IRulePublishListService rulePublishListService;
-
     @RequestMapping(value = {"/findAllRulePubList"}, produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
     public List getAllUsers() {
         List list = rulePublishListService.findAllRulePubList();
         return list;
     }
-
     /*
      * 抢单发布
      * */
@@ -40,18 +38,14 @@ public class RulePublishListController {
     /* @RequestMapping(value = "/insertPublist", method = RequestMethod.POST, headers = "Accept=application/json")
      @ResponseBody
      public ResponseEntity<Void> insertPublist(RulePublish rulePublish) {
-
         try {
-
              rulePublishListService.insertPublist(rulePublish);
              return ResponseEntity.status(HttpStatus.CREATED).build();
-
          } catch (Exception e) {
              e.printStackTrace();
          }
          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
      }*/
-
 
     @RequestMapping(value = "/insertPublish", method = RequestMethod.POST)
     public Json insert(@RequestBody RulePublish rulePublish) {
@@ -92,6 +86,14 @@ public class RulePublishListController {
         boolean success = rulePublishListService.insertPublist(rulePublish);
         System.out.println(success);
         return Json.result(oper, success);
+    }
 
+    @RequestMapping(value = "/queryPublish", method = RequestMethod.POST)
+    public Json queryPublish(@RequestBody RulePublish rulePublish) {
+        System.out.println("--------------------");
+        System.out.println(rulePublish.toString());
+        List query = rulePublishListService.queryPublishList(rulePublish);
+        String oper = "query ospStaff";
+        return Json.succ(oper, query);
     }
 }

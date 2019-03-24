@@ -6,5 +6,8 @@ import java.util.List;
 
 public interface IRulePublishListService {
     List findAllRulePubList();
+    //抢单发布
     public boolean insertPublist(RulePublish rulePublish);
+    //抢单详情
+    public List queryPublishList(RulePublish rulePublish);
 }
