@@ -354,4 +354,21 @@ public class TUser {
     public void setIsDel(Byte isDel) {
         this.isDel = isDel;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id:" + id +
+                ", userId:'" + userId + '\'' +
+                ", userName:'" + userName + '\'' +
+                ", storeId:'" + storeId + '\'' +
+                ", userType:'" + userType + '\'' +
+                ", userTypeId:" + userTypeId +
+                ", passWord:'" + passWord + '\'' +
+                ", userState:" + userState +
+                ", createTime:" + createTime +
+                ", modifyTime:" + modifyTime +
+                ", isDel:" + isDel +
+                '}';
+    }
 }
