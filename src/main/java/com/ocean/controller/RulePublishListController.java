@@ -24,16 +24,18 @@ public class RulePublishListController {
 
     @Autowired
     private IRulePublishListService rulePublishListService;
-    @RequestMapping(value = {"/findAllRulePubList"}, produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/findAllRulePubList"}, produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
     public List getAllUsers() {
         List list = rulePublishListService.findAllRulePubList();
         return list;
     }
+
     /*
      * 抢单发布
      * */
-    @Autowired
-    private RulePubListServiceImpl rulePubListService;
+//    @Autowired
+//    private RulePubListServiceImpl rulePubListService;
 
     /* @RequestMapping(value = "/insertPublist", method = RequestMethod.POST, headers = "Accept=application/json")
      @ResponseBody
@@ -83,6 +85,7 @@ public class RulePublishListController {
         if (rulePublish.getModifyTime()==null){
             rulePublish.setModifyTime(new Date());
         }
+
         boolean success = rulePublishListService.insertPublist(rulePublish);
         System.out.println(success);
         return Json.result(oper, success);
