@@ -10,4 +10,7 @@ public interface IRulePublishListService {
     public boolean insertPublist(RulePublish rulePublish);
     //抢单详情
     public List queryPublishList(RulePublish rulePublish);
+
+    //单个发布详情请求
+     RulePublish selectPublishById(long rulePublishId);
 }

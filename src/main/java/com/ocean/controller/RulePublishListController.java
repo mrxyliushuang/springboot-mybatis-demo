@@ -57,11 +57,14 @@ public class RulePublishListController {
         System.out.println(rulePublish.toString());
 
         String oper = "query ospStaff";
+
         byte isDel=1;
         byte isAlive=1;
         int userTypeId=1;
         String ruleDatetimeId="A";
         String publishUserId="1334733333";
+        Date dateStart=rulePublish.getRulePublishDatetime().getRuleDatetimeStart();
+        System.out.printf("datastart:"+dateStart);
         byte orderNum=1;
         if (rulePublish.getIsDel()==null){
             rulePublish.setIsDel(isDel);
@@ -89,6 +92,7 @@ public class RulePublishListController {
         }
 
         boolean success = rulePublishListService.insertPublist(rulePublish);
+        System.out.println("------rulepublish:"+rulePublish.toString());
         System.out.println(success);
         return Json.result(oper, success);
     }
@@ -101,4 +105,21 @@ public class RulePublishListController {
         String oper = "query ospStaff";
         return Json.succ(oper, query);
     }
+
+    @RequestMapping(value = "/selectPublishById", method = RequestMethod.GET)
+    public Json selectOnePublish(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("----------query one publish info by id----------");
+//        RulePublish rulePublish = new RulePublish();
+        Long rulePublishId=Long.parseLong(req.getParameter("rulePublishId"));
+        System.out.println("rulePublishId = " + rulePublishId);
+        RulePublish rulePublish=rulePublishListService.selectPublishById(rulePublishId);
+//        rulePublish.setPublishUserId(rulePublishId);
+//        RulePublish rulePublishInfo = rulePublishListService.selectPublishById(rulePublish.getRulePublishId());
+        String oper = "query one publish info by id";
+//        return Json.succ(oper, rulePublish);
+        System.out.printf("rulePublish:"+rulePublish.toString());
+        return Json.succ(oper).data("rows", rulePublish);
+
+    }
+    
 }

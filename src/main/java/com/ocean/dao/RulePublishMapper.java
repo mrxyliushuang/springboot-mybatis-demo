@@ -36,6 +36,7 @@ public interface RulePublishMapper {
      *
      * @mbggenerated
      */
+
     RulePublish selectByPrimaryKey(Long rulePublishId);
 
     /**
@@ -58,4 +59,6 @@ public interface RulePublishMapper {
     List findAllRulePubList();
     public List queryPublishList(RulePublish rulePublish);
 
+    //根据ID查询单个发布详情
+     RulePublish selectPublishById(Long rulePublishId);
 }

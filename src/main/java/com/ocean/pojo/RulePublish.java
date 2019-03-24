@@ -172,6 +172,7 @@ public class RulePublish {
                 ", isAlive=" + isAlive +
                 ", isDel=" + isDel +
                 ", publishUserId='" + publishUserId + '\'' +
+                ", rulePublishDatetime=" + rulePublishDatetime +
                 '}';
     }
 }
