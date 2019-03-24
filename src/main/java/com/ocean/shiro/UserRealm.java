@@ -34,6 +34,8 @@ public class UserRealm extends AuthorizingRealm {
 
         System.out.println("————身份认证方法————");
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+        System.out.println(token);
+
         // 从数据库获取对应用户名密码的用户
 //        String password = itUserService.getPassWord(token.getUsername());
 //        if (null == password) {

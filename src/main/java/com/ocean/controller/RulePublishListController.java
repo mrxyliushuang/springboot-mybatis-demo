@@ -56,7 +56,7 @@ public class RulePublishListController {
         System.out.println("--------------------");
         System.out.println(rulePublish.toString());
 
-        String oper = "query ospStaff";
+        String oper = "insert rulePublish";
 
         byte isDel=1;
         byte isAlive=1;
@@ -102,7 +102,7 @@ public class RulePublishListController {
         System.out.println("--------------------");
         RulePublish rulePublish = new RulePublish();
         List query = rulePublishListService.queryPublishList(rulePublish);
-        String oper = "query ospStaff";
+        String oper = "query rulePublish";
         return Json.succ(oper, query);
     }
 
