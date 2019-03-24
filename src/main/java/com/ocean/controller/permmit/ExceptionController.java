@@ -3,9 +3,11 @@ package com.ocean.controller.permmit;
 import com.ocean.utils.ResultMap;
 import org.apache.shiro.authc.AccountException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@CrossOrigin
 @RestControllerAdvice
 public class ExceptionController {
     private final ResultMap resultMap;
