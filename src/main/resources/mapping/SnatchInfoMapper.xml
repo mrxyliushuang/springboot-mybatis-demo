@@ -198,6 +198,12 @@
     <result column="is_alive" jdbcType="TINYINT" property="isAlive" />
     <result column="publish_user_id" jdbcType="VARCHAR" property="publishUserId" />
 
+    <association
+            column="rule_publish_id"
+            property="rulePublishDatetime"
+            select="com.ocean.dao.RulePublishDatetimeMapper.selectByPrimaryKey">
+    </association>
+
   </resultMap>
   <!--  单个发布对应抢单列表-->
   <select id="myOnePublishListById" resultMap="BaseResultMap">
@@ -230,5 +236,18 @@
 	where c.snatch_user_id=d.user_id
    </select>
 
+  <!--  我的抢单 -->
+  <select id="mySnatchList" resultMap="SnatchResultMap">
+   select c.rule_title,c.rule_type,c.rule_content,c.is_alive,c.publish_user_id,
+	c.snatch_mobile_number,c.snatch_user_id,c.rule_publish_id,c.snatch_datetime,c.is_audit,c.audit_datetime,c.snatch_money,
+	d.rule_datetime_start,d.rule_datetime_end,d.rule_money,d.rule_num
+	from
+    (SELECT a.rule_title,a.rule_type,a.rule_content,a.is_alive,a.is_del,a.publish_user_id,a.rule_datetime_id,
+	b.snatch_mobile_number,b.snatch_user_id,b.rule_publish_id,b.snatch_datetime,b.is_audit,b.audit_datetime,b.snatch_money
+	from YQDB.rule_publish a,YQDB.snatch_info b
+	where a.rule_publish_id=b.rule_publish_id
+	and b.snatch_user_id =#{snatchUserId}) c,YQDB.rule_publish_datetime d
+	where c.rule_datetime_id=d.rule_datetime_id
+  </select>
 
 </mapper>
