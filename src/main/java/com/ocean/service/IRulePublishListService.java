@@ -16,4 +16,10 @@ public interface IRulePublishListService {
 
     //我的发布
     List myPublishById(String publishUserId);
+
+    //单个发布详情
+    RulePublish myOnePublishById(long rulePublishId,String publishUserId);
+
+    //单个发布抢单信息列表
+    List myOnePublishListById(long rulePublishId);
 }

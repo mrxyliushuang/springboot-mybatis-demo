@@ -29,6 +29,8 @@ public class RulePublishListController {
     @Autowired
     private IRulePublishListService rulePublishListService;
 
+
+
     @RequestMapping(value = {"/findAllRulePubList"}, produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
     public List getAllUsers() {
         List list = rulePublishListService.findAllRulePubList();
@@ -59,6 +61,7 @@ public class RulePublishListController {
         System.out.println(rulePublish.toString());
         String oper = "insert rulePublish";
         TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String publishUserId = tUser.getUserId();
         System.out.println(tUser.getUserId());
         byte isDel=0;
         byte isAlive=0;
@@ -68,30 +71,14 @@ public class RulePublishListController {
         Date dateStart=rulePublish.getRulePublishDatetime().getRuleDatetimeStart();
         System.out.printf("datastart:"+dateStart);
         byte orderNum=1;
-        if (rulePublish.getIsDel()==null){
             rulePublish.setIsDel(isDel);
-        }
-        if (rulePublish.getIsAlive()==null){
             rulePublish.setIsAlive(isAlive);
-        }
-        if(rulePublish.getUserTypeId()==null){
             rulePublish.setUserTypeId(tUser.getUserTypeId());
-        }
-        if (rulePublish.getRuleDatetimeId()==null){
             rulePublish.setRuleDatetimeId(ruleDatetimeId);
-        }
-        if (rulePublish.getPublishUserId()==null){
             rulePublish.setPublishUserId(tUser.getUserId());
-        }
-        if (rulePublish.getRulePublishDatetime().getOrderNum()==null){
             rulePublish.getRulePublishDatetime().setOrderNum(orderNum);
-        }
-        if (rulePublish.getCreateTime()==null){
             rulePublish.setCreateTime(new Date());
-        }
-        if (rulePublish.getModifyTime()==null){
             rulePublish.setModifyTime(new Date());
-        }
 
         boolean success = rulePublishListService.insertPublist(rulePublish);
         System.out.println("------rulepublish:"+rulePublish.toString());
@@ -124,14 +111,41 @@ public class RulePublishListController {
 
     }
 
-    @RequestMapping(value = "/myPublish", method = RequestMethod.POST)
+    @RequestMapping(value = "/myPublish", method = RequestMethod.GET)
     public Json  myPublishSelect() {
         System.out.println("------我的发布--------");
         TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
-
         String publishUserId = tUser.getUserId();
         String oper = "query myPublish info by usrId";
         List myPublish = rulePublishListService.myPublishById(publishUserId);
         return Json.succ(oper).data("rows", myPublish);
     }
+
+    @RequestMapping(value = "/myOnePublishById", method = RequestMethod.GET)
+    public Json myOnePublish(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("--------- 单个发布详情 ---------");
+
+        Long rulePublishId = Long.parseLong(req.getParameter("rulePublishId"));
+        System.out.println("rulePublishId = " + rulePublishId);
+        String oper = "query onepublish info by id and userId";
+        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String publishUserId = tUser.getUserId();
+
+        RulePublish rulePublish = rulePublishListService.myOnePublishById(rulePublishId, publishUserId);
+        return Json.succ(oper, rulePublish);
+    }
+
+    @RequestMapping(value = "/myOnePublishListById", method = RequestMethod.GET)
+    public Json myOnePublishList(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("---------- 单个发布列表 ----------");
+
+        Long rulePublishId = Long.parseLong(req.getParameter("rulePublishId"));
+        System.out.println("rulePublishId = " + rulePublishId);
+        String oper = "query onepublishlist info by id";
+        List myPublishList = rulePublishListService.myOnePublishListById(rulePublishId);
+        System.out.println(myPublishList);
+        return Json.succ(oper).data("rows", myPublishList);
+
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.ocean.dao;
 
 import com.ocean.pojo.RulePublish;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -60,8 +61,11 @@ public interface RulePublishMapper {
     public List queryPublishList(RulePublish rulePublish);
 
     //根据ID查询单个发布详情
-     RulePublish selectPublishById(Long rulePublishId);
+    RulePublish selectPublishById(Long rulePublishId);
 
      //我的发布
      List myPublishById(String publishUserId);
+
+     //单个发布详情
+   RulePublish myOnePublishById(@Param("rulePublishId") long rulePublishId,@Param("publishUserId") String publishUserId);
 }

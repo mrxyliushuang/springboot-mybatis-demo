@@ -2,6 +2,7 @@ package com.ocean.service.impl;
 
 import com.ocean.dao.RulePublishDatetimeMapper;
 import com.ocean.dao.RulePublishMapper;
+import com.ocean.dao.SnatchInfoMapper;
 import com.ocean.pojo.RulePublish;
 import com.ocean.pojo.RulePublishDatetime;
 import com.ocean.service.IRulePublishListService;
@@ -59,6 +60,19 @@ public class RulePubListServiceImpl implements IRulePublishListService {
         return rulePublishDao.myPublishById(publishUserId);
     }
 
+    //单个发布详情
+    @Override
+    public RulePublish myOnePublishById(long rulePublishId, String publishUserId) {
+        return rulePublishDao.myOnePublishById(rulePublishId,publishUserId);
+    }
+
+    //单个发布抢单信息列表
+    @Autowired
+    private SnatchInfoMapper snatchInfoMapper;
+    @Override
+    public List myOnePublishListById(long rulePublishId) {
+        return snatchInfoMapper.myOnePublishListById(rulePublishId);
+    }
 
 }
 
