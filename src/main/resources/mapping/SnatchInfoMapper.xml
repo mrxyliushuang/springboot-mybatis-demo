@@ -176,5 +176,7 @@
     #{isAudit,jdbcType=TINYINT}, #{auditDatetime,jdbcType=TIMESTAMP}, #{snatchMoney,jdbcType=TINYINT}
     )
   </insert>
+<!-- 我的抢单 -->
+
 
 </mapper>
