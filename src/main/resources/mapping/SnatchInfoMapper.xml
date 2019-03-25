@@ -216,7 +216,19 @@
 
   <!--  单个发布当日对应抢单列表 -->
   <select id="myOnePublishDayList" resultMap="BaseResultMap">
+ select c.rule_title,c.rule_content,c.publish_user_id,c.snatch_mobile_number,c.snatch_user_id,
+	c.rule_publish_id,c.snatch_datetime,c.is_audit,c.audit_datetime,c.snatch_money,d.user_name,d.user_type,d.store_name,d.region_name,d.city_name
+	from
+	(SELECT a.rule_title,a.rule_type,a.rule_content,a.is_alive,a.is_del,a.publish_user_id,
+	b.snatch_mobile_number,b.snatch_user_id,b.rule_publish_id,b.snatch_datetime,b.is_audit,b.audit_datetime,b.snatch_money
+	from YQDB.rule_publish a,YQDB.snatch_info b
+	where a.rule_publish_id=b.rule_publish_id
+	and a.rule_publish_id=#{rulePublishId}
+	and TO_DAYS(b.snatch_datetime)=TO_DAYS(NOW())) c,
+	(SELECT a.user_id,a.user_name,a.user_type,b.store_name,b.region_name,b.city_name from YQDB.t_user a,YQDB.t_store b
+    where a.store_id=b.store_id) d
+	where c.snatch_user_id=d.user_id
+   </select>
 
-  </select>
 
 </mapper>

@@ -73,6 +73,11 @@ public class RulePubListServiceImpl implements IRulePublishListService {
     public List myOnePublishListById(long rulePublishId) {
         return snatchInfoMapper.myOnePublishListById(rulePublishId);
     }
+    //单个发布当日抢单信息列表
+    @Override
+    public List myOnePublishDayList(long rulePublishId) {
+        return snatchInfoMapper.myOnePublishDayList(rulePublishId);
+    }
 
 }
 

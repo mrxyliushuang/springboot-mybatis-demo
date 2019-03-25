@@ -145,7 +145,17 @@ public class RulePublishListController {
         List myPublishList = rulePublishListService.myOnePublishListById(rulePublishId);
         System.out.println(myPublishList);
         return Json.succ(oper).data("rows", myPublishList);
-
     }
 
+    @RequestMapping(value = "/myOneDayPublishList", method = RequestMethod.GET)
+    public Json myOneDayPublishList(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("---------- 单个发布单日抢单列表 ----------");
+
+        Long rulePublishId = Long.parseLong(req.getParameter("rulePublishId"));
+        System.out.println("rulePublishId = " + rulePublishId);
+        String oper = "query onePublishDayList info by id";
+        List myPublishDayList = rulePublishListService.myOnePublishDayList(rulePublishId);
+        System.out.println(myPublishDayList);
+        return Json.succ(oper).data("rows", myPublishDayList);
+    }
 }
