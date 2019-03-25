@@ -53,5 +53,12 @@ public class RulePubListServiceImpl implements IRulePublishListService {
         return rulePublishDao.selectPublishById(rulePublishId);
     }
 
+    //我的发布
+    @Override
+    public List myPublishById(String publishUserId) {
+        return rulePublishDao.myPublishById(publishUserId);
+    }
+
+
 }
 

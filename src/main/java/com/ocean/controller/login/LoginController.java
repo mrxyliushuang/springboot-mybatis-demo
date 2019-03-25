@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 @CrossOrigin
 @RestController
 public class LoginController {
@@ -47,17 +46,23 @@ public class LoginController {
      */
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public ResultMap login(String username, String password) {
-        // 从SecurityUtils里边创建一个 subject
+        // 从SecurityUtils里边创建一个` subject
         Subject subject = SecurityUtils.getSubject();
         // 在认证提交前准备 token（令牌）
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        System.out.println("---------------------");
+        System.out.println(username+password);
+
         // 执行认证登陆
         subject.login(token);
 //        //根据权限，指定返回数据
 //        String role = userMapper.getRole(username);
         TUser tUser=itUserService.selectByUserId(username);
+        System.out.println(tUser.getPassWord());
         String type=tUser.getUserType();
+        System.out.println(type);
         if ("user".equals(type)) {
+            System.out.println("欢迎登陆");
             return resultMap.success().message("欢迎登陆");
         }
         if ("admin".equals(type)) {

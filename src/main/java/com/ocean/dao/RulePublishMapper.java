@@ -61,4 +61,7 @@ public interface RulePublishMapper {
 
     //根据ID查询单个发布详情
      RulePublish selectPublishById(Long rulePublishId);
+
+     //我的发布
+     List myPublishById(String publishUserId);
 }

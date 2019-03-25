@@ -1,9 +1,11 @@
 package com.ocean.controller;
 
 import com.ocean.pojo.RulePublish;
+import com.ocean.pojo.TUser;
 import com.ocean.service.IRulePublishListService;
 import com.ocean.service.impl.RulePubListServiceImpl;
 import com.ocean.utils.Json;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,14 +57,14 @@ public class RulePublishListController {
     public Json insert(@RequestBody RulePublish rulePublish) {
         System.out.println("--------------------");
         System.out.println(rulePublish.toString());
-
-        String oper = "query ospStaff";
-
-        byte isDel=1;
-        byte isAlive=1;
-        int userTypeId=1;
+        String oper = "insert rulePublish";
+        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        System.out.println(tUser.getUserId());
+        byte isDel=0;
+        byte isAlive=0;
+        //int userTypeId=1;
         String ruleDatetimeId="A";
-        String publishUserId="1334733333";
+        //String publishUserId="1334733333";
         Date dateStart=rulePublish.getRulePublishDatetime().getRuleDatetimeStart();
         System.out.printf("datastart:"+dateStart);
         byte orderNum=1;
@@ -73,13 +75,13 @@ public class RulePublishListController {
             rulePublish.setIsAlive(isAlive);
         }
         if(rulePublish.getUserTypeId()==null){
-            rulePublish.setUserTypeId(userTypeId);
+            rulePublish.setUserTypeId(tUser.getUserTypeId());
         }
         if (rulePublish.getRuleDatetimeId()==null){
             rulePublish.setRuleDatetimeId(ruleDatetimeId);
         }
         if (rulePublish.getPublishUserId()==null){
-            rulePublish.setPublishUserId(publishUserId);
+            rulePublish.setPublishUserId(tUser.getUserId());
         }
         if (rulePublish.getRulePublishDatetime().getOrderNum()==null){
             rulePublish.getRulePublishDatetime().setOrderNum(orderNum);
@@ -102,7 +104,7 @@ public class RulePublishListController {
         System.out.println("--------------------");
         RulePublish rulePublish = new RulePublish();
         List query = rulePublishListService.queryPublishList(rulePublish);
-        String oper = "query ospStaff";
+        String oper = "query rulePublish";
         return Json.succ(oper, query);
     }
 
@@ -121,5 +123,15 @@ public class RulePublishListController {
         return Json.succ(oper).data("rows", rulePublish);
 
     }
-    
+
+    @RequestMapping(value = "/myPublish", method = RequestMethod.POST)
+    public Json  myPublishSelect() {
+        System.out.println("------我的发布--------");
+        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+
+        String publishUserId = tUser.getUserId();
+        String oper = "query myPublish info by usrId";
+        List myPublish = rulePublishListService.myPublishById(publishUserId);
+        return Json.succ(oper).data("rows", myPublish);
+    }
 }
