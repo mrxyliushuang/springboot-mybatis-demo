@@ -262,9 +262,11 @@
   </select>
   <!--  抢单头条 -->
   <select id="snatchLatest" resultMap="SnatchResultMap">
-   SELECT e.rule_title,f.store_name,f.region_name,f.city_name from YQDB.rule_publish e,
-  (SELECT c.rule_publish_id,d.store_name,d.region_name,d.city_name,MAX(c.snatch_datetime)
-  from YQDB.snatch_info c,
+  SELECT * from YQDB.rule_publish e,
+  (SELECT c.rule_publish_id,d.store_name,c.snatch_datetime
+  from
+  (SELECT *  from YQDB.snatch_info
+  WHERE snatch_datetime=(SELECT MAX(snatch_datetime) from YQDB.snatch_info)) c,
   (SELECT a.user_id,a.user_name,a.user_type,b.store_name,b.region_name,b.city_name
   from YQDB.t_user a,YQDB.t_store b
   where a.store_id=b.store_id) d
