@@ -1,9 +1,11 @@
 package com.ocean.controller;
 
+import com.ocean.pojo.TUser;
 import com.ocean.utils.Json;
 import com.ocean.utils.ResultMap;
 import com.ocean.pojo.SnatchInfo;
 import com.ocean.service.IInsertSnatInfoService;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -87,9 +89,12 @@ public class SnatchInfoController {
     public Json mySnatchList(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("---------- 我的抢单列表 ----------");
 
-        String snatchUserId = req.getParameter("snatchUserId");
-        System.out.println("snatchUserId = " + snatchUserId);
+       // String snatchUserId = req.getParameter("snatchUserId");
+
         String oper = "query mySnatchList info by id";
+        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String snatchUserId = tUser.getUserId();
+        System.out.println("snatchUserId = " + snatchUserId);
         List mySnatchList = iInsertSnatInfoService.mySnatchList(snatchUserId);
         System.out.println(mySnatchList);
         return Json.succ(oper).data("rows", mySnatchList);
