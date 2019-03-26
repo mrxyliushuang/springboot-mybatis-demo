@@ -12,5 +12,5 @@ public interface IInsertSnatInfoService {
    List mySnatchList(@Param("snatchUserId") String snatchUserId);
 
    //我的单个抢单详情
-   SnatchInfo mySnatchDetail(String snatchMobileNumber,String rulePublishId);
+   SnatchInfo mySnatchDetail(String snatchMobileNumber);
 }

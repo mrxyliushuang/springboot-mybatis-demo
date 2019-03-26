@@ -92,8 +92,6 @@ public class SnatchInfoController {
     public Json mySnatchList(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("---------- 我的抢单列表 ----------");
 
-       // String snatchUserId = req.getParameter("snatchUserId");
-
         String oper = "query mySnatchList info by id";
         TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
         String snatchUserId = tUser.getUserId();
@@ -105,15 +103,12 @@ public class SnatchInfoController {
 
     @RequestMapping(value = "/mySnatchDetail", method = RequestMethod.GET)
     public Json mySnatchDetail(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("---------- 我的抢单列表 ----------");
+        System.out.println("---------- 我的抢单单个详情 ----------");
 
         String snatchMobileNumber = req.getParameter("snatchMobileNumber");
-        String rulePublishId = req.getParameter("rulePublishId");
-
         System.out.println("snatchMobileNumber = " + snatchMobileNumber);
-        System.out.println("rulePublishId = " + rulePublishId);
         String oper = "query mySnatchDetail info by id";
-        SnatchInfo mySnatchDetail = iInsertSnatInfoService.mySnatchDetail(snatchMobileNumber,rulePublishId);
+        SnatchInfo mySnatchDetail = iInsertSnatInfoService.mySnatchDetail(snatchMobileNumber);
         System.out.println(mySnatchDetail);
         return Json.succ(oper).data("rows", mySnatchDetail);
     }

@@ -29,6 +29,6 @@ public interface SnatchInfoMapper {
     List mySnatchList(@Param("snatchUserId") String snatchUserId);
 
     //我的单个抢单详情
-    SnatchInfo mySnatchDetail(@Param("snatchMobileNumber")String snatchMobileNumber,@Param("rulePublishId") String rulePublishId);
+    SnatchInfo mySnatchDetail(@Param("snatchMobileNumber")String snatchMobileNumber);
 
 }

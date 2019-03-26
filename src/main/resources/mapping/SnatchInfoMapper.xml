@@ -258,7 +258,7 @@
     where c.user_id=d.snatch_user_id
     and d.snatch_mobile_number=#{snatchMobileNumber}) n
     where m.rule_publish_id=n.rule_publish_id
-    and n.rule_publish_id=#{rulePublishId}
+
   </select>
 
 </mapper>
