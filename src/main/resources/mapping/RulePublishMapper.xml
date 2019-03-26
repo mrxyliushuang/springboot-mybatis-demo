@@ -238,7 +238,7 @@
   <select id="queryPublishList" resultMap="queryRulePublish">
  SELECT c.rule_publish_id,c.rule_title,c.rule_type,c.user_type_id,c.region_id,c.role_id,c.rule_content,c.rule_datetime_id,c.create_time,c.modify_time,c.is_alive,c.is_del,c.publish_user_id,s.id,s.rule_datetime_id,s.rule_datetime_start,s.rule_datetime_end,s.rule_money,s.order_num,s.rule_num
     FROM yqdb.rule_publish c LEFT JOIN yqdb.rule_publish_datetime s
-    ON c.rule_datetime_id=s.rule_datetime_id;
+    ON c.rule_datetime_id=s.rule_datetime_id
 </select>
  <!-- 抢单发布 -->
   <insert id="insertPublist" parameterType="com.ocean.pojo.RulePublish" keyProperty="rule_publish_id" keyColumn="rulePublishId" useGeneratedKeys="true">
@@ -250,7 +250,7 @@
    	select c.rule_publish_id,c.rule_title,c.rule_type,c.user_type_id,c.region_id,c.role_id,c.rule_content,c.rule_datetime_id,c.create_time,c.modify_time,c.is_alive,c.is_del,c.publish_user_id,s.id,s.rule_datetime_id,s.rule_datetime_start,s.rule_datetime_end,s.rule_money,s.order_num,s.rule_num
 	 from yqdb.rule_publish c,yqdb.rule_publish_datetime s
 	 where c.rule_datetime_id=s.rule_datetime_id
-	 and c.rule_publish_id=#{rulePublishId,jdbcType=BIGINT};
+	 and c.rule_publish_id=#{rulePublishId,jdbcType=BIGINT}
   </select>
 
   <!-- 我的发布 -->
@@ -258,7 +258,7 @@
    	select c.rule_publish_id,c.rule_title,c.rule_type,c.user_type_id,c.region_id,c.role_id,c.rule_content,c.rule_datetime_id,c.create_time,c.modify_time,c.is_alive,c.is_del,c.publish_user_id,s.id,s.rule_datetime_id,s.rule_datetime_start,s.rule_datetime_end,s.rule_money,s.order_num,s.rule_num
 	 from yqdb.rule_publish c,yqdb.rule_publish_datetime s
 	 where c.rule_datetime_id=s.rule_datetime_id
-	 and c.publish_user_id=#{publishUserId};
+	 and c.publish_user_id=#{publishUserId}
   </select>
   <!-- 单个发布详情  -->
   <select id="myOnePublishById" resultMap="queryRulePublish">
@@ -266,7 +266,7 @@
 	 from yqdb.rule_publish c,yqdb.rule_publish_datetime s
 	 where c.rule_datetime_id=s.rule_datetime_id
 	 and c.publish_user_id=#{publishUserId}
-	 and c.rule_publish_id=#{rulePublishId};
+	 and c.rule_publish_id=#{rulePublishId}
   </select>
    <!--  我的发布搜索 -->
   <select id="myPublishSearch" resultMap="queryRulePublish">
@@ -274,6 +274,6 @@
 	 from yqdb.rule_publish c,yqdb.rule_publish_datetime s
 	 where c.rule_datetime_id=s.rule_datetime_id
 	 and c.publish_user_id=#{publishUserId}
-	 and c.rule_title LIKE '%${ruleTitle}%';
+	 and c.rule_title LIKE '%${ruleTitle}%'
   </select>
 </mapper>

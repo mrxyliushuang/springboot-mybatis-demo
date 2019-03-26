@@ -16,4 +16,7 @@ public interface IInsertSnatInfoService {
 
    //抢单头条
    SnatchInfo snatchLatest();
+
+   //我的抢单搜索
+   List mySnatchSearch(String snatchUserId,String ruleTitle);
 }

@@ -122,6 +122,18 @@ public class SnatchInfoController {
         System.out.println(mySnatchDetail);
         return Json.succ(oper).data("rows", mySnatchDetail);
     }
+    @RequestMapping(value = "/mySnatchSearch", method = RequestMethod.GET)
+    public Json mySnatchSearch(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("---------- 我的抢单搜索 ----------");
+
+        String oper = "query mySnatchSearch info by ruleTitle";
+        String ruleTitle = req.getParameter("ruleTitle");
+        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String snatchUserId = tUser.getUserId();
+        List mySnatchSearch = iInsertSnatInfoService.mySnatchSearch(snatchUserId,ruleTitle);
+        System.out.println(mySnatchSearch);
+        return Json.succ(oper).data("rows", mySnatchSearch);
+    }
 }
 
 

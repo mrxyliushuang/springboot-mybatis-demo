@@ -34,4 +34,6 @@ public interface SnatchInfoMapper {
     //抢单头条
     SnatchInfo snatchLatest();
 
+    //我的抢单搜索
+    List mySnatchSearch(@Param("snatchUserId") String snatchUserId,@Param("ruleTitle") String ruleTitle);
 }

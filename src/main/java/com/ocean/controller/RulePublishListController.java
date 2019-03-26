@@ -161,7 +161,7 @@ public class RulePublishListController {
 
     @RequestMapping(value = "/myPublishSearch", method = RequestMethod.GET)
     public Json  myPublishSearch(HttpServletRequest req, HttpServletResponse resp) {
-        System.out.println("------我搜索的发布--------");
+        System.out.println("------我的发布搜索--------");
         TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
         String ruleTitle=req.getParameter("ruleTitle");
         String publishUserId = tUser.getUserId();
