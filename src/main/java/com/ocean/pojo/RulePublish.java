@@ -22,8 +22,8 @@ public class RulePublish {
     private Date modifyTime;
     private Byte isAlive;
     private Byte isDel;
-
     private String publishUserId;
+
     private RulePublishDatetime rulePublishDatetime;
 
     public RulePublishDatetime getRulePublishDatetime() {

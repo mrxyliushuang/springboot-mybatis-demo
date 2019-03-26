@@ -9,6 +9,8 @@ import com.ocean.service.ITUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "insertSnatInfoService")
 public class InsertSnatInfoServiceImpl implements IInsertSnatInfoService {
 
@@ -20,6 +22,16 @@ public class InsertSnatInfoServiceImpl implements IInsertSnatInfoService {
     public boolean  insertSnatInfo(SnatchInfo snatchInfo) {
 
        return  snatchInfoMapper.insertSnatInfo(snatchInfo);
+    }
+    //我的抢单列表
+    @Override
+    public List mySnatchList(String snatchUserId) {
+        return snatchInfoMapper.mySnatchList(snatchUserId);
+    }
+    //我的单个抢单详情
+    @Override
+    public SnatchInfo mySnatchDetail(String snatchMobileNumber, String rulePublishId) {
+        return snatchInfoMapper.mySnatchDetail(snatchMobileNumber,rulePublishId);
     }
 
 }

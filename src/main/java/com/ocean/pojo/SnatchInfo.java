@@ -19,9 +19,15 @@ public class SnatchInfo extends RulePublishAndStore{
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date auditDatetime;
     private Byte snatchMoney;
+    private RulePublishDatetime rulePublishDatetime;
 
+    public RulePublishDatetime getRulePublishDatetime() {
+        return rulePublishDatetime;
+    }
 
-
+    public void setRulePublishDatetime(RulePublishDatetime rulePublishDatetime) {
+        this.rulePublishDatetime = rulePublishDatetime;
+    }
 
     public Long getSnatchInfoId() {
         return snatchInfoId;
@@ -85,6 +91,7 @@ public class SnatchInfo extends RulePublishAndStore{
                 ", isAudit=" + isAudit +
                 ", auditDatetime=" + auditDatetime +
                 ", snatchMoney=" + snatchMoney +
+                ", rulePublishDatetime=" + rulePublishDatetime +
                 '}';
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -80,6 +81,33 @@ public class SnatchInfoController {
 //        List<SysUser> sysUserList = sysUserService.query(query);
 
           return Json.result(oper,success);
+    }
+
+    @RequestMapping(value = "/mySnatchList", method = RequestMethod.GET)
+    public Json mySnatchList(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("---------- 我的抢单列表 ----------");
+
+        String snatchUserId = req.getParameter("snatchUserId");
+        System.out.println("snatchUserId = " + snatchUserId);
+        String oper = "query mySnatchList info by id";
+        List mySnatchList = iInsertSnatInfoService.mySnatchList(snatchUserId);
+        System.out.println(mySnatchList);
+        return Json.succ(oper).data("rows", mySnatchList);
+    }
+
+    @RequestMapping(value = "/mySnatchDetail", method = RequestMethod.GET)
+    public Json mySnatchDetail(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("---------- 我的抢单列表 ----------");
+
+        String snatchMobileNumber = req.getParameter("snatchMobileNumber");
+        String rulePublishId = req.getParameter("rulePublishId");
+
+        System.out.println("snatchMobileNumber = " + snatchMobileNumber);
+        System.out.println("rulePublishId = " + rulePublishId);
+        String oper = "query mySnatchDetail info by id";
+        SnatchInfo mySnatchDetail = iInsertSnatInfoService.mySnatchDetail(snatchMobileNumber,rulePublishId);
+        System.out.println(mySnatchDetail);
+        return Json.succ(oper).data("rows", mySnatchDetail);
     }
 
 }

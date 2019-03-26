@@ -11,6 +11,19 @@
     <result column="is_audit" jdbcType="TINYINT" property="isAudit" />
     <result column="audit_datetime" jdbcType="TIMESTAMP" property="auditDatetime" />
     <result column="snatch_money" jdbcType="TINYINT" property="snatchMoney" />
+
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+
+    <result column="rule_title" jdbcType="VARCHAR" property="ruleTitle" />
+    <result column="rule_type" jdbcType="VARCHAR" property="ruleType" />
+    <result column="rule_content" jdbcType="VARCHAR" property="ruleContent" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="is_alive" jdbcType="TINYINT" property="isAlive" />
+    <result column="publish_user_id" jdbcType="VARCHAR" property="publishUserId" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -175,33 +188,13 @@
   </insert>
 <!-- 我的抢单 -->
   <!--  定义结果集 -->
-  <resultMap id="SnatchResultMap" type="com.ocean.pojo.SnatchInfo">
-    <id column="snatch_info_id" jdbcType="BIGINT" property="snatchInfoId" />
-    <result column="snatch_mobile_number" jdbcType="VARCHAR" property="snatchMobileNumber" />
-    <result column="snatch_user_id" jdbcType="VARCHAR" property="snatchUserId" />
-    <result column="rule_publish_id" jdbcType="VARCHAR" property="rulePublishId" />
-    <result column="snatch_datetime" jdbcType="TIMESTAMP" property="snatchDatetime" />
-    <result column="is_audit" jdbcType="TINYINT" property="isAudit" />
-    <result column="audit_datetime" jdbcType="TIMESTAMP" property="auditDatetime" />
-    <result column="snatch_money" jdbcType="TINYINT" property="snatchMoney" />
-
-    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
-    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
-    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
-
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
-
-    <result column="rule_title" jdbcType="VARCHAR" property="ruleTitle" />
-    <result column="rule_type" jdbcType="VARCHAR" property="ruleType" />
-    <result column="rule_content" jdbcType="VARCHAR" property="ruleContent" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="is_alive" jdbcType="TINYINT" property="isAlive" />
-    <result column="publish_user_id" jdbcType="VARCHAR" property="publishUserId" />
-
-    <association
-            column="rule_publish_id"
-            property="rulePublishDatetime"
-            select="com.ocean.dao.RulePublishDatetimeMapper.selectByPrimaryKey">
+  <resultMap id="SnatchResultMap" type="com.ocean.pojo.SnatchInfo" extends="BaseResultMap">
+    <association property="rulePublishDatetime" javaType="com.ocean.pojo.RulePublishDatetime">
+      <result column="rule_datetime_start" property="ruleDatetimeStart" />
+      <result column="rule_datetime_end" property="ruleDatetimeEnd" />
+      <result column="rule_money" property="ruleMoney" />
+      <result column="order_num" property="orderNum" />
+      <result column="rule_num" property="ruleNum" />
     </association>
 
   </resultMap>
@@ -248,6 +241,24 @@
 	where a.rule_publish_id=b.rule_publish_id
 	and b.snatch_user_id =#{snatchUserId}) c,YQDB.rule_publish_datetime d
 	where c.rule_datetime_id=d.rule_datetime_id
+  </select>
+
+  <!--  我的抢单单个详情 -->
+  <select id="mySnatchDetail" resultMap="SnatchResultMap">
+    select m.*,n.*
+    from
+    (SELECT a.*,b.rule_datetime_start,b.rule_datetime_end,b.rule_money,b.rule_num,b.order_num
+    from YQDB.rule_publish a,YQDB.rule_publish_datetime b
+    where a.rule_datetime_id=b.rule_datetime_id) m,
+    (SELECT c.user_id,c.user_name,c.user_type,c.store_name,c.region_name,c.city_name,d.*
+    from
+    (SELECT a.user_id,a.user_name,a.user_type,b.store_name,b.region_name,b.city_name
+    from YQDB.t_user a,YQDB.t_store b
+    where a.store_id=b.store_id) c,YQDB.snatch_info d
+    where c.user_id=d.snatch_user_id
+    and d.snatch_mobile_number=#{snatchMobileNumber}) n
+    where m.rule_publish_id=n.rule_publish_id
+    and n.rule_publish_id=#{rulePublishId}
   </select>
 
 </mapper>

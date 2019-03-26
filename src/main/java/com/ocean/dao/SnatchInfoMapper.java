@@ -24,4 +24,11 @@ public interface SnatchInfoMapper {
 
     //单个发布抢单当日信息列表
     List myOnePublishDayList(@Param("rulePublishId") long rulePublishId);
+
+    //我的抢单
+    List mySnatchList(@Param("snatchUserId") String snatchUserId);
+
+    //我的单个抢单详情
+    SnatchInfo mySnatchDetail(@Param("snatchMobileNumber")String snatchMobileNumber,@Param("rulePublishId") String rulePublishId);
+
 }

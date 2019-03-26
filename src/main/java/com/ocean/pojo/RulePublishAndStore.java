@@ -18,6 +18,7 @@ public class RulePublishAndStore {
     private Date modifyTime;
     private Byte isAlive;
     private Byte isDel;
+    private String publishUserId;
 
     private String storeName;
     private String regionName;
@@ -28,7 +29,7 @@ public class RulePublishAndStore {
     @Override
     public String toString() {
         return "RulePublishAndStore{" +
-                ", ruleTitle='" + ruleTitle + '\'' +
+                "ruleTitle='" + ruleTitle + '\'' +
                 ", ruleType='" + ruleType + '\'' +
                 ", userTypeId=" + userTypeId +
                 ", ruleContent='" + ruleContent + '\'' +
@@ -36,6 +37,7 @@ public class RulePublishAndStore {
                 ", modifyTime=" + modifyTime +
                 ", isAlive=" + isAlive +
                 ", isDel=" + isDel +
+                ", publishUserId='" + publishUserId + '\'' +
                 ", storeName='" + storeName + '\'' +
                 ", regionName='" + regionName + '\'' +
                 ", cityName='" + cityName + '\'' +
@@ -43,6 +45,13 @@ public class RulePublishAndStore {
                 '}';
     }
 
+    public String getPublishUserId() {
+        return publishUserId;
+    }
+
+    public void setPublishUserId(String publishUserId) {
+        this.publishUserId = publishUserId;
+    }
 
     public String getRuleTitle() {
         return ruleTitle;
