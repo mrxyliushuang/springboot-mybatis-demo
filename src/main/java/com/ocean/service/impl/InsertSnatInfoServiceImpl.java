@@ -33,5 +33,10 @@ public class InsertSnatInfoServiceImpl implements IInsertSnatInfoService {
     public SnatchInfo mySnatchDetail(String snatchMobileNumber) {
         return snatchInfoMapper.mySnatchDetail(snatchMobileNumber);
     }
+    // //抢单头条
+    @Override
+    public SnatchInfo snatchLatest() {
+        return snatchInfoMapper.snatchLatest();
+    }
 
 }

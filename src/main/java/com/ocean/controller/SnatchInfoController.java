@@ -113,6 +113,15 @@ public class SnatchInfoController {
         return Json.succ(oper).data("rows", mySnatchDetail);
     }
 
+    @RequestMapping(value = "/snatchLatest", method = RequestMethod.GET)
+    public Json snatchLatest(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("---------- 抢单头条 ----------");
+
+        String oper = "snatchLatest";
+        SnatchInfo mySnatchDetail = iInsertSnatInfoService.snatchLatest();
+        System.out.println(mySnatchDetail);
+        return Json.succ(oper).data("rows", mySnatchDetail);
+    }
 }
 
 

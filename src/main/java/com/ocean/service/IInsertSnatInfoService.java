@@ -13,4 +13,7 @@ public interface IInsertSnatInfoService {
 
    //我的单个抢单详情
    SnatchInfo mySnatchDetail(String snatchMobileNumber);
+
+   //抢单头条
+   SnatchInfo snatchLatest();
 }
