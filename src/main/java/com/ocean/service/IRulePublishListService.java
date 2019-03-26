@@ -1,6 +1,7 @@
 package com.ocean.service;
 
 import com.ocean.pojo.RulePublish;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,4 +28,6 @@ public interface IRulePublishListService {
 
     //单个发布抢单当日信息列表
     List myOnePublishDayList(long rulePublishId);
+    //我的发布搜索
+    List myPublishSearch(String publishUserId,String ruleTitle);
 }

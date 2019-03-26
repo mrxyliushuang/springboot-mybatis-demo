@@ -77,6 +77,11 @@ public class RulePubListServiceImpl implements IRulePublishListService {
     public List myOnePublishDayList(long rulePublishId) {
         return snatchInfoMapper.myOnePublishDayList(rulePublishId);
     }
+     //我的发布搜索
+    @Override
+    public List myPublishSearch(String publishUserId,String ruleTitle) {
+        return rulePublishDao.myPublishSearch(publishUserId,ruleTitle);
+    }
 
 
 }

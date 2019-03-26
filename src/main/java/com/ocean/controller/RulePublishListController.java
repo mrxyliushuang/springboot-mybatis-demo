@@ -158,4 +158,15 @@ public class RulePublishListController {
         System.out.println(myPublishDayList);
         return Json.succ(oper).data("rows", myPublishDayList);
     }
+
+    @RequestMapping(value = "/myPublishSearch", method = RequestMethod.GET)
+    public Json  myPublishSearch(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("------我搜索的发布--------");
+        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String ruleTitle=req.getParameter("ruleTitle");
+        String publishUserId = tUser.getUserId();
+        String oper = "query myPublishSearch info by ruleTitle";
+        List myPublish = rulePublishListService.myPublishSearch(publishUserId,ruleTitle);
+        return Json.succ(oper).data("rows", myPublish);
+    }
 }
