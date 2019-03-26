@@ -50,24 +50,26 @@ public class SnatchInfoController {
 //
 //    }
 
-   @RequestMapping(value = {"/insert"},method = RequestMethod.POST)
-   @ResponseBody
+    @RequestMapping(value = {"/insert"},method = RequestMethod.POST)
+    @ResponseBody
     public Json insertSnatch(@RequestBody SnatchInfo snatchInfo) {
         String oper = "insert Snatch Info";
-       // log.info("{}, body: {}", oper, req);
+        // log.info("{}, body: {}", oper, req);
         //获取传入的参数
 //        String snatchMobileNumber=req.getParameter("snatchMobileNumber");
 //        String snatchUserId=req.getParameter("snatchMobileNumber");
 //        String rulePublishId=req.getParameter("snatchMobileNumber");
 
         String snatchMobileNumber=snatchInfo.getSnatchMobileNumber();
-        String snatchUserId=snatchInfo.getSnatchUserId();
+        //   String snatchUserId=snatchInfo.getSnatchUserId();
         String rulePublishId= snatchInfo.getRulePublishId();
 
-        int  isAudit=1;
+        TUser currentTUser = (TUser) SecurityUtils.getSubject().getPrincipal();
 
+        int  isAudit=1;
         int  snatchMoney=50;
 
+        snatchInfo.setSnatchUserId(currentTUser.getUserId());
         snatchInfo.setSnatchDatetime(new Date());
         snatchInfo.setIsAudit((byte)isAudit);
         snatchInfo.setAuditDatetime(new Date());
@@ -78,12 +80,13 @@ public class SnatchInfoController {
 //        query.setUserCode(userCode);
 //        query.setUserName(userName);
 
-          boolean success =iInsertSnatInfoService.insertSnatInfo(snatchInfo);
+        boolean success =iInsertSnatInfoService.insertSnatInfo(snatchInfo);
 //
 //        List<SysUser> sysUserList = sysUserService.query(query);
 
-          return Json.result(oper,success);
+        return Json.result(oper,success);
     }
+
 
     @RequestMapping(value = "/mySnatchList", method = RequestMethod.GET)
     public Json mySnatchList(HttpServletRequest req, HttpServletResponse resp) {
