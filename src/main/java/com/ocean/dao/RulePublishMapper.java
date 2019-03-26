@@ -64,7 +64,7 @@ public interface RulePublishMapper {
     RulePublish selectPublishById(Long rulePublishId);
 
      //我的发布
-     List myPublishById(String publishUserId);
+     List myPublishById(@Param("publishUserId") String publishUserId);
 
      //单个发布详情
    RulePublish myOnePublishById(@Param("rulePublishId") long rulePublishId,@Param("publishUserId") String publishUserId);

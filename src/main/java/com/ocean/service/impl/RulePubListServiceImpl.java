@@ -43,7 +43,6 @@ public class RulePubListServiceImpl implements IRulePublishListService {
 
     }
 
-
     @Override
     public List queryPublishList(RulePublish rulePublish) {
         return rulePublishDao.queryPublishList(rulePublish);
@@ -78,6 +77,7 @@ public class RulePubListServiceImpl implements IRulePublishListService {
     public List myOnePublishDayList(long rulePublishId) {
         return snatchInfoMapper.myOnePublishDayList(rulePublishId);
     }
+
 
 }
 

@@ -64,7 +64,7 @@ public class RulePublishListController {
         String publishUserId = tUser.getUserId();
         System.out.println(tUser.getUserId());
         byte isDel=0;
-        byte isAlive=0;
+        byte isAlive=1;
         //int userTypeId=1;
         String ruleDatetimeId="A";
         //String publishUserId="1334733333";
@@ -112,7 +112,7 @@ public class RulePublishListController {
     }
 
     @RequestMapping(value = "/myPublish", method = RequestMethod.GET)
-    public Json  myPublishSelect() {
+    public Json  myPublishSelect(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("------我的发布--------");
         TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
         String publishUserId = tUser.getUserId();
