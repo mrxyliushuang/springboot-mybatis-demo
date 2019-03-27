@@ -40,6 +40,7 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
+
     /**
      * 注入 securityManager
      */
