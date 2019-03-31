@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,25 +58,31 @@ public class RulePublishListController {
 
     @RequestMapping(value = "/insertPublish", method = RequestMethod.POST)
     public Json insert(@RequestBody RulePublish rulePublish) {
-        System.out.println("--------------------");
+        System.out.println("-------- 我的发布 ------------");
         System.out.println(rulePublish.toString());
         String oper = "insert rulePublish";
-        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String publishUserId="13342569800";
+       /* TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
         String publishUserId = tUser.getUserId();
-        System.out.println(tUser.getUserId());
+        System.out.println(tUser.getUserId());*/
         byte isDel=0;
-        byte isAlive=1;
+        byte isAlive=0;
         //int userTypeId=1;
-        String ruleDatetimeId="A";
+        SimpleDateFormat sf = new SimpleDateFormat("yyyyMMddHHmm");
+        String ruleDatetimeId = sf.format(new Date()).toString();
+        System.out.println(ruleDatetimeId);
+        //String ruleDatetimeId="A";
         //String publishUserId="1334733333";
         Date dateStart=rulePublish.getRulePublishDatetime().getRuleDatetimeStart();
         System.out.printf("datastart:"+dateStart);
         byte orderNum=1;
             rulePublish.setIsDel(isDel);
             rulePublish.setIsAlive(isAlive);
-            rulePublish.setUserTypeId(tUser.getUserTypeId());
+           // rulePublish.setUserTypeId(tUser.getUserTypeId());
+            rulePublish.setUserTypeId(1);
             rulePublish.setRuleDatetimeId(ruleDatetimeId);
-            rulePublish.setPublishUserId(tUser.getUserId());
+           // rulePublish.setPublishUserId(tUser.getUserId());
+            rulePublish.setPublishUserId(publishUserId);
             rulePublish.getRulePublishDatetime().setOrderNum(orderNum);
             rulePublish.setCreateTime(new Date());
             rulePublish.setModifyTime(new Date());
@@ -104,6 +111,7 @@ public class RulePublishListController {
         RulePublish rulePublish=rulePublishListService.selectPublishById(rulePublishId);
 //        rulePublish.setPublishUserId(rulePublishId);
 //        RulePublish rulePublishInfo = rulePublishListService.selectPublishById(rulePublish.getRulePublishId());
+
         String oper = "query one publish info by id";
 //        return Json.succ(oper, rulePublish);
         System.out.printf("rulePublish:"+rulePublish.toString());
@@ -114,8 +122,9 @@ public class RulePublishListController {
     @RequestMapping(value = "/myPublish", method = RequestMethod.GET)
     public Json  myPublishSelect(HttpServletRequest req, HttpServletResponse resp) {
         System.out.println("------我的发布--------");
-        TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
-        String publishUserId = tUser.getUserId();
+       /* TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String publishUserId = tUser.getUserId();*/
+        String publishUserId="13342569800";
         String oper = "query myPublish info by usrId";
         List myPublish = rulePublishListService.myPublishById(publishUserId);
         return Json.succ(oper).data("rows", myPublish);

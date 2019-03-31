@@ -17,6 +17,8 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
     <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -195,4 +197,22 @@
     select * from yqdb.t_user  a where a.user_id=#{user_id}
   </select>
 
+  <!--  定义结果集 -->
+  <resultMap id="UserResultMap" type="com.ocean.pojo.TUser" extends="BaseResultMap">
+    <association property="tStore" javaType="com.ocean.pojo.TStore">
+      <result column="store_name" property="storeName" />
+      <result column="region_name" property="regionName" />
+      <result column="city_name" property="cityName" />
+    </association>
+  </resultMap>
+  <!-- 用户列表 -->
+  <select id="userList" resultMap="UserResultMap">
+  SELECT * from YQDB.t_store s,
+  (SELECT m.*,n.role_name,n.role_id from YQDB.t_user m,
+  (SELECT a.role_name,b.user_id,b.role_id
+  from YQDB.t_role a,YQDB.user_role_rel b
+  WHERE a.role_id=b.role_id) n
+  WHERE m.user_id=n.user_id) t
+  WHERE s.store_id=t.store_id
+   </select>
 </mapper>

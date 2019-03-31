@@ -1,6 +1,7 @@
 package com.ocean.controller;
 
 import com.ocean.pojo.TUser;
+import com.ocean.service.impl.InsertSnatInfoServiceImpl;
 import com.ocean.utils.Json;
 import com.ocean.utils.ResultMap;
 import com.ocean.pojo.SnatchInfo;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequestMapping(value = {"/snatchinfo"})
 public class SnatchInfoController {
     @Autowired
-    private IInsertSnatInfoService iInsertSnatInfoService;
+    private InsertSnatInfoServiceImpl iInsertSnatInfoService;
     @Autowired
     private ResultMap resultMap;
 
@@ -108,6 +109,7 @@ public class SnatchInfoController {
         String snatchMobileNumber = req.getParameter("snatchMobileNumber");
         System.out.println("snatchMobileNumber = " + snatchMobileNumber);
         String oper = "query mySnatchDetail info by id";
+        System.out.println(snatchMobileNumber);
         SnatchInfo mySnatchDetail = iInsertSnatInfoService.mySnatchDetail(snatchMobileNumber);
         System.out.println(mySnatchDetail);
         return Json.succ(oper).data("rows", mySnatchDetail);
@@ -134,6 +136,38 @@ public class SnatchInfoController {
         System.out.println(mySnatchSearch);
         return Json.succ(oper).data("rows", mySnatchSearch);
     }
+
+    @RequestMapping(value = "/updateByUser", method = RequestMethod.POST)
+    public Json updateByUser(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("--------- 单个用户审核 -----------");
+
+        String oper = "uodate snatchInfo";
+        String snatchMobileNumber = req.getParameter("snatchMobileNumber");
+        System.out.println(snatchMobileNumber);
+        byte isAudit = Byte.parseByte(req.getParameter("isAudit"));
+        System.out.println(isAudit);
+
+        Date auditDatetime=new Date();
+        boolean success = iInsertSnatInfoService.updateByUser(isAudit,auditDatetime,snatchMobileNumber);
+
+        System.out.println(success);
+        return Json.result(oper, success);
+    }
+
+    @RequestMapping(value = "/myPublishAllSearch", method = RequestMethod.GET)
+    public Json myPublishAllSearch(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("---------- 我发布的所有抢单 ----------");
+
+        String oper = "myPublishAllSearch info by publishUserId";
+
+        /*TUser tUser = (TUser) SecurityUtils.getSubject().getPrincipal();
+        String snatchUserId = tUser.getUserId();*/
+        String snatchUserId = "13342568835";
+        List myPublishAllSnatch = iInsertSnatInfoService.myPublishAllSnatch(snatchUserId);
+
+        return Json.succ(oper).data("rows", myPublishAllSnatch);
+    }
+
 }
 
 

@@ -10,8 +10,8 @@ public class RulePublishAndStore {
     private String ruleType;
     private Integer userTypeId;
     private String ruleContent;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -19,30 +19,18 @@ public class RulePublishAndStore {
     private Byte isAlive;
     private Byte isDel;
     private String publishUserId;
-
     private String storeName;
     private String regionName;
     private String cityName;
-
     private String userName;
+    private String staffId;
 
-    @Override
-    public String toString() {
-        return "RulePublishAndStore{" +
-                "ruleTitle='" + ruleTitle + '\'' +
-                ", ruleType='" + ruleType + '\'' +
-                ", userTypeId=" + userTypeId +
-                ", ruleContent='" + ruleContent + '\'' +
-                ", createTime=" + createTime +
-                ", modifyTime=" + modifyTime +
-                ", isAlive=" + isAlive +
-                ", isDel=" + isDel +
-                ", publishUserId='" + publishUserId + '\'' +
-                ", storeName='" + storeName + '\'' +
-                ", regionName='" + regionName + '\'' +
-                ", cityName='" + cityName + '\'' +
-                ", userName='" + userName + '\'' +
-                '}';
+    public String getStaffId() {
+        return staffId;
+    }
+
+    public void setStaffId(String staffId) {
+        this.staffId = staffId;
     }
 
     public String getPublishUserId() {
@@ -147,5 +135,25 @@ public class RulePublishAndStore {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    @Override
+    public String toString() {
+        return "RulePublishAndStore{" +
+                "ruleTitle='" + ruleTitle + '\'' +
+                ", ruleType='" + ruleType + '\'' +
+                ", userTypeId=" + userTypeId +
+                ", ruleContent='" + ruleContent + '\'' +
+                ", createTime=" + createTime +
+                ", modifyTime=" + modifyTime +
+                ", isAlive=" + isAlive +
+                ", isDel=" + isDel +
+                ", publishUserId='" + publishUserId + '\'' +
+                ", storeName='" + storeName + '\'' +
+                ", regionName='" + regionName + '\'' +
+                ", cityName='" + cityName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", staffId='" + staffId + '\'' +
+                '}';
     }
 }

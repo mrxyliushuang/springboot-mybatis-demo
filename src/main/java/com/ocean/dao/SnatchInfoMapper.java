@@ -5,6 +5,7 @@ import com.ocean.pojo.SnatchInfo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 @Component
 public interface SnatchInfoMapper {
@@ -36,4 +37,14 @@ public interface SnatchInfoMapper {
 
     //我的抢单搜索
     List mySnatchSearch(@Param("snatchUserId") String snatchUserId,@Param("ruleTitle") String ruleTitle);
+
+    //单用户审核
+    public  boolean updateByUser(@Param("isAudit") byte isAudit, @Param("auditDatetime") Date auditDatetime, @Param("snatchMobileNumber") String snatchMobileNumber);
+
+    //我发布的所有抢单
+    List myPublishAllSnatch(@Param("publishUserId")String publishUserId);
+
+
+    //前一天抢单的号码列表
+    List snatchMobile();
 }

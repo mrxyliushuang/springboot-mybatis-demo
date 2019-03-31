@@ -9,6 +9,7 @@ import com.ocean.service.ITUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "insertSnatInfoService")
@@ -42,6 +43,22 @@ public class InsertSnatInfoServiceImpl implements IInsertSnatInfoService {
     @Override
     public List mySnatchSearch(String snatchUserId, String ruleTitle) {
         return snatchInfoMapper.mySnatchSearch(snatchUserId,ruleTitle);
+    }
+
+    @Override
+    public boolean updateByUser(byte isAudit, Date auditDatetime, String snatchMobileNumber) {
+        return snatchInfoMapper.updateByUser(isAudit, auditDatetime, snatchMobileNumber);
+    }
+    //我发布的所有抢单
+    @Override
+    public List myPublishAllSnatch(String publishUserId) {
+        return snatchInfoMapper.myPublishAllSnatch(publishUserId);
+    }
+
+    //前一天抢单的号码列表
+    @Override
+    public List snatchMobile() {
+        return snatchInfoMapper.snatchMobile();
     }
 
 }

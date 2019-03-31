@@ -6,6 +6,8 @@ import com.ocean.service.ITUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service(value = "tUserService")
 public class TUserServiceImpl  implements ITUserService {
 
@@ -15,5 +17,10 @@ public class TUserServiceImpl  implements ITUserService {
     @Override
     public TUser selectByUserId(String userId) {
         return tUserMapper.selectByUserId(userId);
+    }
+
+    @Override
+    public List userList() {
+        return tUserMapper.userList();
     }
 }

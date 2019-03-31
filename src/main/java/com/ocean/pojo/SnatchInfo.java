@@ -11,12 +11,12 @@ public class SnatchInfo extends RulePublishAndStore{
     private String snatchUserId;
     private String rulePublishId;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date snatchDatetime;
     private Byte isAudit;
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date auditDatetime;
     private Byte snatchMoney;
     private RulePublishDatetime rulePublishDatetime;

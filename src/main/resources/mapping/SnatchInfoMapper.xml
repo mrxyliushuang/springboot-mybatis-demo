@@ -17,6 +17,7 @@
     <result column="city_name" jdbcType="VARCHAR" property="cityName" />
 
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="staff_id" jdbcType="VARCHAR" property="staffId" />
 
     <result column="rule_title" jdbcType="VARCHAR" property="ruleTitle" />
     <result column="rule_type" jdbcType="VARCHAR" property="ruleType" />
@@ -24,6 +25,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="is_alive" jdbcType="TINYINT" property="isAlive" />
     <result column="publish_user_id" jdbcType="VARCHAR" property="publishUserId" />
+
   </resultMap>
   <sql id="Base_Column_List">
     <!--
@@ -198,15 +200,19 @@
     </association>
 
   </resultMap>
-  <!--  单个发布对应抢单列表-->
-  <select id="myOnePublishListById" resultMap="BaseResultMap">
-  select c.rule_title,c.rule_content,c.publish_user_id,c.snatch_mobile_number,c.snatch_user_id,
-	c.rule_publish_id,c.snatch_datetime,c.is_audit,c.audit_datetime,c.snatch_money,d.user_name,d.user_type,d.store_name,d.region_name,d.city_name
+  <!--  单个发布对应抢单列表,增加时间段-->
+  <select id="myOnePublishListById" resultMap="SnatchResultMap">
+   select c.rule_title,c.rule_content,c.publish_user_id,c.rule_type,c.snatch_mobile_number,
+   c.snatch_user_id,c.rule_publish_id,c.snatch_datetime,c.is_audit,c.audit_datetime,c.snatch_money,
+   c.rule_datetime_start,c.rule_datetime_end,
+	d.user_name,d.user_type,d.store_name,d.region_name,d.city_name
 	from
 	(SELECT a.rule_title,a.rule_type,a.rule_content,a.is_alive,a.is_del,a.publish_user_id,
-	b.snatch_mobile_number,b.snatch_user_id,b.rule_publish_id,b.snatch_datetime,b.is_audit,b.audit_datetime,b.snatch_money
-	from YQDB.rule_publish a,YQDB.snatch_info b
+	b.snatch_mobile_number,b.snatch_user_id,b.rule_publish_id,b.snatch_datetime,b.is_audit,b.audit_datetime,b.snatch_money,
+	c.rule_datetime_start,c.rule_datetime_end
+	from YQDB.rule_publish a,YQDB.snatch_info b,YQDB.rule_publish_datetime c
 	where a.rule_publish_id=b.rule_publish_id
+	and a.rule_datetime_id=c.rule_datetime_id
 	and a.rule_publish_id=#{rulePublishId}) c,
 	(SELECT a.user_id,a.user_name,a.user_type,b.store_name,b.region_name,b.city_name from YQDB.t_user a,YQDB.t_store b
     where a.store_id=b.store_id) d
@@ -244,21 +250,19 @@
   </select>
 
   <!--  我的抢单单个详情 -->
-  <select id="mySnatchDetail" resultMap="SnatchResultMap">
-    select m.*,n.*
-    from
-    (SELECT a.*,b.rule_datetime_start,b.rule_datetime_end,b.rule_money,b.rule_num,b.order_num
-    from YQDB.rule_publish a,YQDB.rule_publish_datetime b
-    where a.rule_datetime_id=b.rule_datetime_id) m,
-    (SELECT c.user_id,c.user_name,c.user_type,c.store_name,c.region_name,c.city_name,d.*
-    from
-    (SELECT a.user_id,a.user_name,a.user_type,b.store_name,b.region_name,b.city_name
-    from YQDB.t_user a,YQDB.t_store b
-    where a.store_id=b.store_id) c,YQDB.snatch_info d
-    where c.user_id=d.snatch_user_id
-    and d.snatch_mobile_number=#{snatchMobileNumber}) n
-    where m.rule_publish_id=n.rule_publish_id
+  <select id="mySnatchDetail"  resultMap="SnatchResultMap">
 
+select m.*,n.*
+   from  (SELECT a.*,b.rule_datetime_start,b.rule_datetime_end,b.rule_money,b.rule_num,b.order_num
+          from YQDB.rule_publish a,YQDB.rule_publish_datetime b
+          where a.rule_datetime_id=b.rule_datetime_id) m,
+           (SELECT c.user_id,c.user_name,c.user_type,c.group_name,c.group_lvl3_name,c.group_lvl2_name,d.*
+            from (SELECT a.user_id,a.user_name,a.user_type,b.group_name,b.group_lvl3_name,b.group_lvl2_name
+                  from YQDB.t_user a,YQDB.t_group b
+                  where a.store_id=b.group_id) c,YQDB.snatch_info d
+            where c.user_id=d.snatch_user_id
+            and d.snatch_mobile_number=#{snatchMobileNumber}) n
+   where m.rule_publish_id=n.rule_publish_id
   </select>
   <!--  抢单头条 -->
   <select id="snatchLatest" resultMap="SnatchResultMap">
@@ -287,5 +291,36 @@
 	and b.snatch_user_id =#{snatchUserId}) c,YQDB.rule_publish_datetime d
 	where c.rule_datetime_id=d.rule_datetime_id
 	and c.rule_title LIKE '%${ruleTitle}%'
+  </select>
+
+  <!-- 单个用户审核 -->
+  <update id="updateByUser" parameterType="com.ocean.pojo.SnatchInfo">
+    update YQDB.snatch_info
+    set
+    is_audit = #{isAudit,jdbcType=TINYINT},
+    audit_datetime = #{auditDatetime,jdbcType=TIMESTAMP}
+    where snatch_mobile_number =#{snatchMobileNumber,jdbcType=VARCHAR}
+  </update>
+
+  <!--  我的发布的所有抢单 -->
+  <select id="myPublishAllSnatch" resultMap="SnatchResultMap">
+  select e.rule_title,e.rule_type,e.rule_content,e.is_alive,e.publish_user_id,
+	e.rule_datetime_start,e.rule_datetime_end,e.rule_money,e.rule_num,
+	f.*
+  from
+  (SELECT a.*,b.rule_datetime_start,b.rule_datetime_end,b.rule_money,b.rule_num
+   from YQDB.rule_publish a,YQDB.rule_publish_datetime b
+  WHERE a.rule_datetime_id=b.rule_datetime_id) e,
+  (SELECT * from YQDB.snatch_info y,
+  (SELECT m.*,n.store_name,n.region_name,n.city_name from YQDB.t_user m,YQDB.t_store n
+  WHERE m.store_id=n.store_id) q
+  WHERE y.snatch_user_id=q.user_id) f
+  where e.rule_publish_id=f.rule_publish_id
+  and e.publish_user_id=#{publishUserId}
+  </select>
+  <!--  将前一天的抢单号码取出来 -->
+  <select id="snatchMobile" resultMap="SnatchResultMap">
+  SELECT snatch_mobile_number,snatch_datetime from YQDB.snatch_info
+  WHERE TO_DAYS(snatch_datetime)=TO_DAYS(NOW())-1
   </select>
 </mapper>

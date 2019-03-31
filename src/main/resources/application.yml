@@ -1,10 +1,10 @@
 server:
-  port: 18081
+  port: 18085
 
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://134.176.110.182:8907/yqdb
+        url: jdbc:mysql://134.176.110.182:8907/yqdb?characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
         username: yqq
         password: DX@yqq0318
         driver-class-name: com.mysql.jdbc.Driver
